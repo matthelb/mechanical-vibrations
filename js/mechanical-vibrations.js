@@ -7,5 +7,5 @@ function UndampedFreeVibration(m, k, y0, v0) {
 }
 
 UndampedFreeVibration.prototype.call = function(t) {
-	return this.y0 * Math.cos(this.w0 * t) + v0 / w0 * Math.sin(w0 * t);
+	return this.y0 * Math.cos(this.w0 * t) + this.v0 / this.w0 * Math.sin(this.w0 * t);
 }
