@@ -1,27 +1,19 @@
 $(document).ready(function(){
 	$('#simulate-button').click(function(){
-		/*var m = $('#m-input').value();
-		var k = $('#k-input').value();
-		var y0 = $('#y0-input').value();
-		var v0 = $('#v0-input').value();
-		var time = $('#time-input').value();
-		var start = $('#start-input').value();
-		var end = $('#end-input').value();*/
-		var m = 5;
-		var k = 5;
-		var y0 = 5;
-		var v0 = 5;
-		var time = 20;
-		var start = 1;
-		var end = 5;
-		var ufv = new UndampedFreeVibration(m, k, y0, v0);
-		console.log(ufv.call(0));
-		graph(start, end, ufv, time)
+		var m = parseFloat($('#m-input').val());
+		var k = parseFloat($('#k-input').val());
+		var y0 = parseFloat($('#y0-input').val());
+		var v0 = parseFloat($('#v0-input').val());
+		var frames = parseInt($('#time-input').val());
+		var start = parseFloat($('#start-input').val());
+		var end = parseFloat($('#end-input').val());
+		var spring = new Spring(m, k, y0, v0, UndampedFreeVibration);
+		graph(start, end, spring, frames);
+
 	});
 });
 
-function graph(start, end, type, time) {
-	console.log(type.call(0));
+function graph(start, end, spring, seconds) {
 	var series = [];
 	var container = $('#placeholder');
 	var plot = $.plot(container, [series], {
@@ -47,12 +39,12 @@ function graph(start, end, type, time) {
 			}
 		},
 		xaxis: {
-			min: start*.9,
-			max: end*1.1
+			min: start,
+			max: end
 		},
 		yaxis: {
-			min: -10,
-			max: 10
+			min: -Math.ceil(spring.type.getAmplitude() * 1.1),
+			max: Math.ceil(spring.type.getAmplitude() * 1.1)
 		},
 		legend: {
 			show: true
@@ -60,14 +52,15 @@ function graph(start, end, type, time) {
 	});
 
 	var t = start;
-	var i = (end-start)/time/100;
-
+	var i = (end-start)/(seconds * 60);
 	setInterval(function(){
-		if(t > end) return;
-		series.push([t, type.call(t)]);
-		t+=i;
+		if(t > end) 
+			return;
+		series.push([t, spring.type.call(t)]);
+		t += i;
 		plot.setData([series]);
 		plot.setupGrid();
 		plot.draw();
-	}, i*1000);
+		spring.draw(t, $('#spring-canvas')[0]);
+	}, 16);
 }
