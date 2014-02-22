@@ -6,17 +6,25 @@
 	<script language="javascript" type="text/javascript" src="flot/jquery.flot.time.min.js"></script>
 </head>
 <body>
-	<input type="text" id="m-input" placeholder = "Input a mass.">
-	<input type="text" id="k-input" placeholder="Input a k value.">
-	<input type="text" id="y0-input" placeholder="Input an initial y value.">
-	<input type="text" id="v0-input" placeholder="Input an initial velocity.">
-	<input type="text" id="time-input" placeholder="How long would you like to run?">
-	<input type="text" id="start-input" placeholder="Start time.">
-	<input type="text" id="end-input" placeholder="End time.">
+	<label for="m-input">Mass</label>
+	<input type="text" id="m-input" placeholder = "Input a mass." />
+	<label for="k-input">Spring Constant</label>
+	<input type="text" id="k-input" placeholder="Input a k value." />
+	<label for="y0-input">Initial y-position</label>
+	<input type="text" id="y0-input" placeholder="Input an initial y value." />
+	<label for="v0-input">Initial velocity</label>
+	<input type="text" id="v0-input" placeholder="Input an initial velocity." />
+	<label for="time-input">Simulation run time</label>
+	<input type="text" id="time-input" placeholder="How long would you like to run?" />
+	<label for="start-input">Initial t</label>
+	<input type="text" id="start-input" placeholder="Start time." />
+	<label for="end-input">End t</label>
+	<input type="text" id="end-input" placeholder="End time." />
 	<button id="simulate-button">Click to simulate spring with above inputs.</button>
 	<div id="graph-wrapper">
 		<div id="placeholder" style="width: 850px; height:425px;"></div>
 	</div>
+	<canvas id="spring-canvas" width="256" height="256"></canvas>
 </body>
 <script src="js/mechanical-vibrations.js"></script>
 <script src="js/main.js"></script>
