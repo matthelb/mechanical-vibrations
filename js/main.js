@@ -11,17 +11,15 @@ $(document).ready(function(){
 		var k = 5;
 		var y0 = 5;
 		var v0 = 5;
-		var time = 20;
-		var start = 1;
+		var time = 5;
+		var start = 0;
 		var end = 5;
 		var ufv = new UndampedFreeVibration(m, k, y0, v0);
-		console.log(ufv.call(0));
 		graph(start, end, ufv, time)
 	});
 });
 
 function graph(start, end, type, time) {
-	console.log(type.call(0));
 	var series = [];
 	var container = $('#placeholder');
 	var plot = $.plot(container, [series], {
@@ -61,6 +59,7 @@ function graph(start, end, type, time) {
 
 	var t = start;
 	var i = (end-start)/time/100;
+	console.log(i);
 
 	setInterval(function(){
 		if(t > end) return;
