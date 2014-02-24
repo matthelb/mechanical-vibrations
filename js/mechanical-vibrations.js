@@ -10,14 +10,6 @@ Spring.prototype.draw = function(t, canvas) {
 	var y = this.type.getAmplitude() - this.type.call(t);
 	y = (canvas.height / 4) * y / this.type.getAmplitude();
 	var size = Math.max(10, Math.min(100, this.type.m));
-<<<<<<< HEAD
-	var n = 10;
-	var i = y / n;
-	var x = size / 2;
-	drawZigZag(context, x, 0, n, i, 8)
-	drawZigZag(context, x, 0, n, i, -8)
-	context.fillRect(0, y, size, size);
-=======
 	var x = canvas.width / 2 - size / 2;
 	var n = 10;
 	var i = y / n;
@@ -25,7 +17,6 @@ Spring.prototype.draw = function(t, canvas) {
 	drawZigZag(context, m, 0, n, i, 8)
 	drawZigZag(context, m, 0, n, i, -8)
 	context.fillRect(x, y, size, size);
->>>>>>> 83fd608faa4f033d199434d605703b7de63b33cc
 }
 
 function drawZigZag(context, x, y, n, spacing, width) {
