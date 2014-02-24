@@ -11,14 +11,12 @@ $(document).ready(function(){
 		graph(start, end, spring, frames);
 	});
 	$('#stop-simulation').click(function(){
-		var id = $('#spring-graph').data('interval-id');
-		if (id) {
-			clearInterval(id);
-		}
+		stopGraphing();
 	});
 });
 
 function graph(start, end, spring, seconds) {
+	stopGraphing();
 	var series = [];
 	var container = $('#spring-graph');
 	var xMax = (isNaN(end)) ? start + 10 : end;
@@ -80,4 +78,11 @@ function graph(start, end, spring, seconds) {
 		plot.draw();
 		spring.draw(t, $('#spring-canvas')[0]);
 	}, 16));
+}
+
+function stopGraphing() {
+	var id = $('#spring-graph').data('interval-id');
+	if (id) {
+		clearInterval(id);
+	}
 }

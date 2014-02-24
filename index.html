@@ -27,37 +27,53 @@
 		<div class="text-center">
 			<h1>Mechanical Vibrations</h1>
 		</div>
-		<div class="form-group">
-			<label for="m-input">Mass</label>
-			<input type="text" id="m-input" placeholder = "Input a mass." />
-		</div>
-		<div class="form-group">
-			<label for="k-input">Spring Constant</label>
-			<input type="text" id="k-input" placeholder="Input a k value." />
-		</div>
-		<div class="form-group">
-			<label for="y0-input">Initial y-position</label>
-			<input type="text" id="y0-input" placeholder="Input an initial y value." />
-		</div>
-		<div class="form-group">
-			<label for="v0-input">Initial velocity</label>
-			<input type="text" id="v0-input" placeholder="Input an initial velocity." />
-		</div>
-		<div class="form-group">
-			<label for="time-input">Simulation run time</label>
-			<input type="text" id="time-input" placeholder="How long would you like to run?" />
-		</div>
-		<div class="form-group">
-			<label for="start-input">Initial t</label>
-			<input type="text" id="start-input" placeholder="Start time." />
-		</div>
-		<div class="form-group">
-			<label for="end-input">End t</label>
-			<input type="text" id="end-input" placeholder="End time." />
-		</div>
-		<div class="form-group">
-			<button id="start-simulation">Start Simulation</button>
-			<button id="stop-simulation">Stop Simulation</button>
+		<div class="form-horizontal">
+			<div class="form-group">
+				<label class="col-lg-4 control-label" for="m-input">Mass</label>
+				<div class="col-lg-8">
+					<input class="form-control" type="text" id="m-input" placeholder = "Input a mass." />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label" for="k-input">Spring Constant</label>
+				<div class="col-lg-8">
+					<input class="form-control" type="text" id="k-input" placeholder="Input a k value." />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label" for="y0-input">Initial y-position</label>
+				<div class="col-lg-8">
+					<input class="form-control" type="text" id="y0-input" placeholder="Input an initial y value." />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label" for="v0-input">Initial velocity</label>
+				<div class="col-lg-8">
+					<input class="form-control" type="text" id="v0-input" placeholder="Input an initial velocity." />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label" for="time-input">Simulation run time</label>
+				<div class="col-lg-8">
+					<input class="form-control" type="text" id="time-input" placeholder="How long would you like to run?" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label" for="start-input">Initial t</label>
+				<div class="col-lg-8">
+					<input class="form-control" type="text" id="start-input" placeholder="Start time." />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label" for="end-input">End t</label>
+				<div class="col-lg-8">
+					<input class="form-control" type="text" id="end-input" placeholder="End time." />
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn" id="start-simulation">Start Simulation</button>
+				<button class="btn" id="stop-simulation">Stop Simulation</button>
+			</div>
 		</div>
 		<canvas id="spring-canvas" width="256" height="256"></canvas>
 		<div id="graph-wrapper">
