@@ -1,9 +1,5 @@
 $(document).ready(function(){
-<<<<<<< HEAD
-	$('#simulate-button').click(function(){
-=======
 	$('#start-simulation').click(function(){
->>>>>>> 83fd608faa4f033d199434d605703b7de63b33cc
 		var m = parseFloat($('#m-input').val());
 		var k = parseFloat($('#k-input').val());
 		var y0 = parseFloat($('#y0-input').val());
