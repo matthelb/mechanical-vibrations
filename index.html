@@ -1,31 +1,87 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-	<script src="js/jquery-1.11.0.min.js"></script>
-	<script language="javascript" type="text/javascript" src="flot/jquery.flot.js"></script>
-	<script language="javascript" type="text/javascript" src="flot/jquery.flot.time.min.js"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<style>
+	body {
+		padding-top: 50px;
+		padding-bottom: 20px;
+	}
+	</style>
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/main.css">
+
+	<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 <body>
-	<label for="m-input">Mass</label>
-	<input type="text" id="m-input" placeholder = "Input a mass." />
-	<label for="k-input">Spring Constant</label>
-	<input type="text" id="k-input" placeholder="Input a k value." />
-	<label for="y0-input">Initial y-position</label>
-	<input type="text" id="y0-input" placeholder="Input an initial y value." />
-	<label for="v0-input">Initial velocity</label>
-	<input type="text" id="v0-input" placeholder="Input an initial velocity." />
-	<label for="time-input">Simulation run time</label>
-	<input type="text" id="time-input" placeholder="How long would you like to run?" />
-	<label for="start-input">Initial t</label>
-	<input type="text" id="start-input" placeholder="Start time." />
-	<label for="end-input">End t</label>
-	<input type="text" id="end-input" placeholder="End time." />
-	<button id="simulate-button">Click to simulate spring with above inputs.</button>
-	<div id="graph-wrapper">
-		<div id="placeholder" style="width: 850px; height:425px;"></div>
+	<div class="col-lg-6 center">
+		<div class="text-center">
+			<h1>Mechanical Vibrations</h1>
+		</div>
+		<div class="form-group">
+			<label for="m-input">Mass</label>
+			<input type="text" id="m-input" placeholder = "Input a mass." />
+		</div>
+		<div class="form-group">
+			<label for="k-input">Spring Constant</label>
+			<input type="text" id="k-input" placeholder="Input a k value." />
+		</div>
+		<div class="form-group">
+			<label for="y0-input">Initial y-position</label>
+			<input type="text" id="y0-input" placeholder="Input an initial y value." />
+		</div>
+		<div class="form-group">
+			<label for="v0-input">Initial velocity</label>
+			<input type="text" id="v0-input" placeholder="Input an initial velocity." />
+		</div>
+		<div class="form-group">
+			<label for="time-input">Simulation run time</label>
+			<input type="text" id="time-input" placeholder="How long would you like to run?" />
+		</div>
+		<div class="form-group">
+			<label for="start-input">Initial t</label>
+			<input type="text" id="start-input" placeholder="Start time." />
+		</div>
+		<div class="form-group">
+			<label for="end-input">End t</label>
+			<input type="text" id="end-input" placeholder="End time." />
+		</div>
+		<div class="form-group">
+			<button id="start-simulation">Start Simulation</button>
+			<button id="stop-simulation">Stop Simulation</button>
+		</div>
+		<canvas id="spring-canvas" width="256" height="256"></canvas>
+		<div id="graph-wrapper">
+			<div id="spring-graph" style="width: 850px; height:425px;"></div>
+		</div>
 	</div>
-	<canvas id="spring-canvas" width="256" height="256"></canvas>
-</body>
-<script src="js/mechanical-vibrations.js"></script>
+	<footer>
+		<p>&copy; Ananth Mohan &amp; Matthew Burke</p>
+	</footer>
+</div> <!-- /container -->        
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script language="javascript" type="text/javascript" src="flot/jquery.flot.js"></script>
+<script language="javascript" type="text/javascript" src="flot/jquery.flot.time.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script language="javascript" src="js/mechanical-vibrations.js"></script>
 <script src="js/main.js"></script>
+
+<script>
+var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+	g.src='//www.google-analytics.com/ga.js';
+	s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
 </html>
