@@ -10,9 +10,25 @@ Spring.prototype.draw = function(t, canvas) {
 	var y = this.type.getAmplitude() - this.type.call(t);
 	y = (canvas.height / 4) * y / this.type.getAmplitude();
 	var size = Math.max(10, Math.min(100, this.type.m));
+	var n = 10;
+	var i = y / n;
+	var x = size / 2;
+	drawZigZag(context, x, 0, n, i, 8)
+	drawZigZag(context, x, 0, n, i, -8)
 	context.fillRect(0, y, size, size);
 }
 
+function drawZigZag(context, x, y, n, spacing, width) {
+	context.beginPath();
+	var o = width / 2;
+	context.moveTo(x - o, 0);
+	for (var j = 1; j <= n; j++) {
+		context.lineTo(x + o, j * spacing);
+		o = -o;
+	}
+	context.stroke();
+	context.closePath();
+}
 function UndampedFreeVibration(m, k, y0, v0) {
 	this.m = m;
 	this.k = k;
