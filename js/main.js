@@ -1,5 +1,9 @@
 $(document).ready(function(){
+<<<<<<< HEAD
 	$('#simulate-button').click(function(){
+=======
+	$('#start-simulation').click(function(){
+>>>>>>> 83fd608faa4f033d199434d605703b7de63b33cc
 		var m = parseFloat($('#m-input').val());
 		var k = parseFloat($('#k-input').val());
 		var y0 = parseFloat($('#y0-input').val());
@@ -9,13 +13,27 @@ $(document).ready(function(){
 		var end = parseFloat($('#end-input').val());
 		var spring = new Spring(m, k, y0, v0, UndampedFreeVibration);
 		graph(start, end, spring, frames);
+<<<<<<< HEAD
 
+=======
+	});
+	$('#stop-simulation').click(function(){
+		var id = $('#spring-graph').data('interval-id');
+		if (id) {
+			clearInterval(id);
+		}
+>>>>>>> 83fd608faa4f033d199434d605703b7de63b33cc
 	});
 });
 
 function graph(start, end, spring, seconds) {
 	var series = [];
+<<<<<<< HEAD
 	var container = $('#placeholder');
+=======
+	var container = $('#spring-graph');
+	var xMax = (isNaN(end)) ? start + 10 : end;
+>>>>>>> 83fd608faa4f033d199434d605703b7de63b33cc
 	var plot = $.plot(container, [series], {
 		grid: {
 			borderWidth: 1,
@@ -40,11 +58,19 @@ function graph(start, end, spring, seconds) {
 		},
 		xaxis: {
 			min: start,
+<<<<<<< HEAD
 			max: end
 		},
 		yaxis: {
 			min: -Math.ceil(spring.type.getAmplitude() * 1.1),
 			max: Math.ceil(spring.type.getAmplitude() * 1.1)
+=======
+			max: xMax
+		},
+		yaxis: {
+			min: -Math.ceil((spring.type.getAmplitude() + spring.type.y0) * 1.1),
+			max: Math.ceil((spring.type.getAmplitude() + spring.type.y0) * 1.1)
+>>>>>>> 83fd608faa4f033d199434d605703b7de63b33cc
 		},
 		legend: {
 			show: true
@@ -52,15 +78,37 @@ function graph(start, end, spring, seconds) {
 	});
 
 	var t = start;
+<<<<<<< HEAD
 	var i = (end-start)/(seconds * 60);
 	setInterval(function(){
 		if(t > end) 
 			return;
+=======
+	var i;
+	if (isNaN(end)) {
+		i = 0.05;
+	} else {
+		i = (end-start)/(seconds * 60);
+	}
+	
+	container.data('interval-id', setInterval(function(){
+		if(t >= end) 
+			return;
+		if (t >= xMax) {
+			series = series.slice(1);
+			plot.getOptions().xaxes[0].min += i;
+			plot.getOptions().xaxes[0].max += i;
+		}
+>>>>>>> 83fd608faa4f033d199434d605703b7de63b33cc
 		series.push([t, spring.type.call(t)]);
 		t += i;
 		plot.setData([series]);
 		plot.setupGrid();
 		plot.draw();
 		spring.draw(t, $('#spring-canvas')[0]);
+<<<<<<< HEAD
 	}, 16);
+=======
+	}, 16));
+>>>>>>> 83fd608faa4f033d199434d605703b7de63b33cc
 }
