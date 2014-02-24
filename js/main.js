@@ -62,7 +62,7 @@ function graph(start, end, spring, seconds) {
 	} else {
 		i = (end-start)/(seconds * 60);
 	}
-	
+
 	container.data('interval-id', setInterval(function(){
 		if(t >= end) 
 			return;
