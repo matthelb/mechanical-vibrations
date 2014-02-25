@@ -1,7 +1,13 @@
 $(document).ready(function(){
+	$('.required').append($("<span>").addClass("required-label").text("*"));
 	$('#spring-canvas').attr('width', $('#spring-canvas').width());
 	$('#spring-canvas').attr('height', $('#spring-canvas').width());
 	$('#start-simulation').click(function(){
+		
+		if(invalidForm()){
+			$('#warning-modal').modal('show');
+			return;
+		}
 		$('#graph-modal').modal('show');
 		$('#graph-modal').on('shown.bs.modal', function(e){
 			initGraph();
@@ -18,6 +24,18 @@ $(document).ready(function(){
 	});
 });
 
+function invalidForm(){
+	var m = parseFloat($('#m-input').val());
+	var k = parseFloat($('#k-input').val());
+	var y0 = parseFloat($('#y0-input').val());
+	var v0 = parseFloat($('#v0-input').val());
+	var frames = parseInt($('#time-input').val());
+	var start = parseFloat($('#start-input').val());
+	var end = parseFloat($('#end-input').val());
+	if(isNaN(m) || isNaN(k) || isNaN(y0) || isNaN(v0)) return true;
+	else return false;
+}
+
 function initGraph(){
 	var m = parseFloat($('#m-input').val());
 	var k = parseFloat($('#k-input').val());
@@ -26,6 +44,8 @@ function initGraph(){
 	var frames = parseInt($('#time-input').val());
 	var start = parseFloat($('#start-input').val());
 	var end = parseFloat($('#end-input').val());
+	if(isNaN(start))
+		start = 0;
 	var spring = new Spring(m, k, y0, v0, UndampedFreeVibration);
 	graph(start, end, spring, frames);
 }
@@ -62,8 +82,8 @@ function graph(start, end, spring, seconds) {
 			show: true
 		}
 	});
-	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("yaxisLabel").text("y-displacement"));
-	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("xaxisLabel").text("time (s)"));
+	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("yaxisLabel").text("y-displacement (m)"));
+	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("xaxisLabel").text("Time (s)"));
 	var t = start;
 	var i = (isNaN(end)) ? 0.05 : (end - start)/(seconds * 60);
 

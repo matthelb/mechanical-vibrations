@@ -24,9 +24,9 @@ Spring.prototype.draw = function(t, canvas) {
 	}*/
 	context.fillRect(x, y, size, size);
 	context.strokeStyle = "red";
-	drawVector(context, canvas.width - 12, canvas.height / 2, this.type.getVelocity(t), this.type.getMaximumVelocity(), canvas.height / 4, 8);
+	drawVector(context, canvas.width - 20, canvas.height / 2, this.type.getVelocity(t), this.type.getMaximumVelocity(), canvas.height / 4, 8);
 	context.strokeStyle = "green";
-	drawVector(context, canvas.width - 8, canvas.height / 2, this.type.getAcceleration(t), this.type.getMaximumAcceleration(), canvas.height / 4, 8);
+	drawVector(context, canvas.width - 16, canvas.height / 2, this.type.getAcceleration(t), this.type.getMaximumAcceleration(), canvas.height / 4, 8);
 }
 
 function drawZigZag(context, x, y, n, spacing, width) {

@@ -10,12 +10,12 @@
 #spring-position {
 	color: blue;
 }
-.axisLabel{
+.axisLabel {
 	position:absolute;
 	text-align:center;
 	font-size:12px;
 }
-.yaxisLabel{
+.yaxisLabel {
 	top: 50%;
     margin-left: 2px;
     transform: rotate(-90deg);
@@ -44,16 +44,10 @@
 	color: green;
 }
 
+#canvas-wrapper {
+	border: 1px solid #082783;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+.required-label {
+	color: red;
+}
