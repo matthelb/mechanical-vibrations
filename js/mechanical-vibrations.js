@@ -36,6 +36,7 @@ function UndampedFreeVibration(m, k, y0, v0) {
 	this.y0 = y0;
 	this.v0 = v0;
 	this.w0 = Math.sqrt(k / m);
+	this.name = "Undamped Free Vibration";
 }
 
 UndampedFreeVibration.prototype.call = function(t) {
