@@ -38,19 +38,19 @@
 					<canvas id="spring-canvas" style="width:425px;height:425px;float:left;"></canvas>
 					<table style="margin:auto;">
 						<tr>
-							<td>Time</td>
+							<td>Time:  </td>
 							<td id="simulation-time"></td>
 						</tr>
 						<tr>
-							<td>Position</td>
+							<td>Position:  </td>
 							<td id="spring-position"></td>
 						</tr>
 						<tr>
-							<td>Velocity</td>
+							<td>Velocity:  </td>
 							<td id="spring-velocity"></td>
 						</tr>
 						<tr>
-							<td>Acceleration</td>
+							<td>Acceleration:  </td>
 							<td id="spring-acceleration"></td>
 						</tr>
 					</table>
@@ -112,7 +112,7 @@
 						<input class="form-control" type="text" id="end-input" placeholder="End time." />
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group text-center">
 					<label class="btn">
 						<input type="radio" name="type" value="UndampedFreeVibration" checked="checked"> Undamped Free
 					</label>
@@ -126,7 +126,7 @@
 						<input type="radio" name="type" value="DampedForcedVibration"> Damped Forced
 					</label>					  	
 				</div>
-				<div class="form-group">
+				<div class="form-group text-center">
 					<button class="btn" id="start-simulation" data-toggle="modal" data-target="#graph-modal">Start Simulation</button>
 				</div>
 			</div>

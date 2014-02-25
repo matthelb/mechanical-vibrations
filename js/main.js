@@ -2,27 +2,33 @@ $(document).ready(function(){
 	$('#spring-canvas').attr('width', $('#spring-canvas').width());
 	$('#spring-canvas').attr('height', $('#spring-canvas').width());
 	$('#start-simulation').click(function(){
-		var m = parseFloat($('#m-input').val());
-		var k = parseFloat($('#k-input').val());
-		var y0 = parseFloat($('#y0-input').val());
-		var v0 = parseFloat($('#v0-input').val());
-		var frames = parseInt($('#time-input').val());
-		var start = parseFloat($('#start-input').val());
-		var end = parseFloat($('#end-input').val());
-		var spring = new Spring(m, k, y0, v0, UndampedFreeVibration);
-		graph(start, end, spring, frames);
 		$('#graph-modal').modal('show');
+		$('#graph-modal').on('shown.bs.modal', function(e){
+			initGraph();
+		});
 	});
 	$('#stop-simulation').click(function(){
 		stopGraphing();
 	});
 	$('#graph-modal').on('hidden.bs.modal', function(e){
-		$('#stop-simulation').trigger('click');
+		stopGraphing();
 	});
 	$('#resume-simulation').click(function(){
-		$('#start-simulation').trigger('click');
+		initGraph();
 	});
 });
+
+function initGraph(){
+	var m = parseFloat($('#m-input').val());
+	var k = parseFloat($('#k-input').val());
+	var y0 = parseFloat($('#y0-input').val());
+	var v0 = parseFloat($('#v0-input').val());
+	var frames = parseInt($('#time-input').val());
+	var start = parseFloat($('#start-input').val());
+	var end = parseFloat($('#end-input').val());
+	var spring = new Spring(m, k, y0, v0, UndampedFreeVibration);
+	graph(start, end, spring, frames);
+}
 
 function graph(start, end, spring, seconds) {
 	stopGraphing();
