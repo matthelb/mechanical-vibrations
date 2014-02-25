@@ -23,103 +23,127 @@
 	<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 <body>
-	<div class="col-lg-10 center">
+	<!-- Modal -->
+	<div class="modal fade" id="graph-modal" tabindex="-1" role="dialog" aria-labelledby="model-label" aria-hidden="true">
+		<div class="modal-dialog modal-lg" style="width: 950px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="modal-title" style="text-align:center;"></h4>
+				</div>
+				<div class="modal-body">
+					<div id="graph-wrapper" style="width: 425px;height:425px;float:left;">
+						<div id="spring-graph" style="width: 425px; height:425px;"></div>
+					</div>
+					<div id="canvas-wrapper" style="width:425px;height:425px;float:left;">
+						<canvas id="spring-canvas" style="width:425px;height:425px;float:left;"></canvas>
+					</div>
+					<table style="margin:auto;">
+						<tr>
+							<td>Time:  </td>
+							<td id="simulation-time"></td>
+						</tr>
+						<tr>
+							<td>Position:  </td>
+							<td id="spring-position"></td>
+						</tr>
+						<tr>
+							<td>Velocity:  </td>
+							<td id="spring-velocity"></td>
+						</tr>
+						<tr>
+							<td>Acceleration:  </td>
+							<td id="spring-acceleration"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer" style="text-align:center;">
+					<button type="button" class="btn btn-success" id="resume-simulation">Start</button>
+					<button type="button" class="btn btn-warning" id="stop-simulation">Stop</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="warning-modal" tabindex="-1" role="dialog" aria-labelledby="model-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="modal-title" style="text-align:center;">One or more required fields are incorrectly filled out. Please fix and press "Start Simulation" again</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-8 center">
 		<div class="row">
 			<div class="text-center">
 				<h1>Mechanical Vibrations</h1>
 			</div>
-			<div class="form-horizontal col-lg-8">
+			<div class="form-horizontal">
 				<div class="form-group">
-					<label class="col-lg-4 control-label" for="m-input">Mass</label>
+					<label class="col-lg-4 control-label required" for="m-input">Mass</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" id="m-input" placeholder = "Input a mass." />
+						<input class="form-control" type="text" id="m-input" placeholder = "Input a mass." value="100" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-4 control-label" for="k-input">Spring Constant</label>
+					<label class="col-lg-4 control-label required" for="k-input">Spring Constant</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" id="k-input" placeholder="Input a k value." />
+						<input class="form-control" type="text" id="k-input" placeholder="Input a k value." value="100" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-4 control-label" for="y0-input">Initial y-position</label>
+					<label class="col-lg-4 control-label required" for="y0-input">Initial y-position</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" id="y0-input" placeholder="Input an initial y value." />
+						<input class="form-control" type="text" id="y0-input" placeholder="Input an initial y value." value="10" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-4 control-label" for="v0-input">Initial velocity</label>
+					<label class="col-lg-4 control-label required" for="v0-input">Initial velocity</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" id="v0-input" placeholder="Input an initial velocity." />
+						<input class="form-control" type="text" id="v0-input" placeholder="Input an initial velocity." value="50" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label" for="time-input">Simulation run time</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" id="time-input" placeholder="How long would you like to run?" />
+						<input class="form-control" type="text" id="time-input" placeholder="How long should the simulation run?" value="10" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label" for="start-input">Initial t</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" id="start-input" placeholder="Start time." />
+						<input class="form-control" type="text" id="start-input" placeholder="Start time." value="0"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label" for="end-input">End t</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" id="end-input" placeholder="End time." />
+						<input class="form-control" type="text" id="end-input" placeholder="End time." value="10"/>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group text-center">
+					<div class="btn-group">
 						<label class="btn">
-					    	<input type="radio" name="type" value="UndampedFreeVibration" checked="checked"> Undamped Free
-					    </label>
-					    <label class="btn">
-					    	<input type="radio" name="type" value="DampedFreeVibration"> Damped Free
-					    </label>
-					    <label class="btn">
-					    	<input type="radio" name="type" value="UndampedForcedVibration"> Undamped Forced
-					    </label>
-					    <label class="btn">
-					    	<input type="radio" name="type" value="DampedForcedVibration"> Damped Forced
-					    </label>					  	
+							<input type="radio" name="type" value="UndampedFreeVibration" checked> Undamped Free
+						</label>
+						<label class="btn">
+							<input type="radio" name="type" value="DampedFreeVibration" disabled> Damped Free
+						</label>
+						<label class="btn">
+							<input type="radio" name="type" value="UndampedForcedVibration" disabled> Undamped Forced
+						</label>
+						<label class="btn">
+							<input type="radio" name="type" value="DampedForcedVibration" disabled> Damped Forced
+						</label>		
+					</div>			  	
 				</div>
-				<div class="form-group">
-					<button class="btn" id="start-simulation">Start Simulation</button>
-					<button class="btn" id="stop-simulation">Stop Simulation</button>
+				<div class="form-group text-center">
+					<button class="btn" id="start-simulation" data-toggle="modal">Start Simulation</button>
 				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="row">
-					<canvas id="spring-canvas" class="col-lg-12"></canvas>
-				</div>
-				<div class="row">
-					<table>
-						<tr>
-							<td>Time</td>
-							<td id="simulation-time"></td>
-						</tr>
-						<tr>
-							<td>Position</td>
-							<td id="spring-position"></td>
-						</tr>
-						<tr>
-							<td>Velocity</td>
-							<td id="spring-velocity"></td>
-						</tr>
-						<tr>
-							<td>Acceleration</td>
-							<td id="spring-acceleration"></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div id="graph-wrapper" class="col-lg-12">
-				<div id="chart-title" class="center"></div>
-				<div id="spring-graph" style="width: 850px; height:425px;"></div>
 			</div>
 		</div>
 	</div>

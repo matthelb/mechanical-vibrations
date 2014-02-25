@@ -15,8 +15,13 @@ Spring.prototype.draw = function(t, canvas) {
 	var i = y / n;
 	var m = x + size / 2;
 	context.strokeStyle = "black";
-	drawZigZag(context, m, 0, n, i, 8)
-	drawZigZag(context, m, 0, n, i, -8)
+	drawZigZag(context, m, 0, n, i, 8);
+	drawZigZag(context, m, 0, n, i, -8);
+/*	var imageObj = new Image();
+	imageObj.src = 'weight.png';
+	imageObj.onload = function(){
+		context.drawImage(imageObj, x, y, size, size);
+	}*/
 	context.fillRect(x, y, size, size);
 	context.strokeStyle = "red";
 	drawVector(context, canvas.width - 12, canvas.height / 2, this.type.getVelocity(t), this.type.getMaximumVelocity(), canvas.height / 4, 8);
@@ -55,7 +60,6 @@ function UndampedFreeVibration(m, k, y0, v0) {
 	this.y0 = y0;
 	this.v0 = v0;
 	this.w0 = Math.sqrt(k / m);
-	this.name = "Undamped Free Vibration";
 }
 
 UndampedFreeVibration.prototype.getPosition = function(t) {
