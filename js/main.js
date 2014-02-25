@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	$('#spring-canvas').attr('width', $('#spring-canvas').width());
+	$('#spring-canvas').attr('height', $('#spring-canvas').width());
 	$('#start-simulation').click(function(){
 		var m = parseFloat($('#m-input').val());
 		var k = parseFloat($('#k-input').val());
@@ -11,14 +13,13 @@ $(document).ready(function(){
 		graph(start, end, spring, frames);
 	});
 	$('#stop-simulation').click(function(){
-		var id = $('#spring-graph').data('interval-id');
-		if (id) {
-			clearInterval(id);
-		}
+		stopGraphing();
 	});
 });
 
 function graph(start, end, spring, seconds) {
+	stopGraphing();
+	$("#chart-title").text(spring.type.name);
 	var series = [];
 	var container = $('#spring-graph');
 	var xMax = (isNaN(end)) ? start + 10 : end;
@@ -35,14 +36,6 @@ function graph(start, end, spring, seconds) {
 				bottom: 20,
 				left: 20
 			},
-			markings: function(axes) {
-				var markings = [];
-				var xaxis = axes.xaxis;
-				for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
-					markings.push({ xaxis: { from: x, to: x + xaxis.tickSize }, color: "rgba(232, 232, 255, 0.2)" });
-				}
-				return markings;
-			}
 		},
 		xaxis: {
 			min: start,
@@ -56,28 +49,37 @@ function graph(start, end, spring, seconds) {
 			show: true
 		}
 	});
-
+	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("yaxisLabel").text("y-displacement"));
+	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("xaxisLabel").text("time (s)"));
 	var t = start;
-	var i;
-	if (isNaN(end)) {
-		i = 0.05;
-	} else {
-		i = (end-start)/(seconds * 60);
-	}
-	
+	var i = (isNaN(end)) ? 0.05 : (end - start)/(seconds * 60);
+
 	container.data('interval-id', setInterval(function(){
 		if(t >= end) 
+			return;
+		if(isNaN(end) && t >= seconds)
 			return;
 		if (t >= xMax) {
 			series = series.slice(1);
 			plot.getOptions().xaxes[0].min += i;
 			plot.getOptions().xaxes[0].max += i;
 		}
-		series.push([t, spring.type.call(t)]);
+		series.push([t, spring.type.getPosition(t)]);
 		t += i;
 		plot.setData([series]);
 		plot.setupGrid();
 		plot.draw();
 		spring.draw(t, $('#spring-canvas')[0]);
+		$('#simulation-time').text(t.toFixed(3));
+		$('#spring-position').text(spring.type.getPosition(t).toFixed(3));
+		$('#spring-velocity').text(spring.type.getVelocity(t).toFixed(3));
+		$('#spring-acceleration').text(spring.type.getAcceleration(t).toFixed(3));
 	}, 16));
+}
+
+function stopGraphing() {
+	var id = $('#spring-graph').data('interval-id');
+	if (id) {
+		clearInterval(id);
+	}
 }
