@@ -11,15 +11,22 @@ $(document).ready(function(){
 		var end = parseFloat($('#end-input').val());
 		var spring = new Spring(m, k, y0, v0, UndampedFreeVibration);
 		graph(start, end, spring, frames);
+		$('#graph-modal').modal('show');
 	});
 	$('#stop-simulation').click(function(){
 		stopGraphing();
+	});
+	$('#graph-modal').on('hidden.bs.modal', function(e){
+		$('#stop-simulation').trigger('click');
+	});
+	$('#resume-simulation').click(function(){
+		$('#start-simulation').trigger('click');
 	});
 });
 
 function graph(start, end, spring, seconds) {
 	stopGraphing();
-	$("#chart-title").text(spring.type.name);
+	$("#modal-title").text(spring.type.name);
 	var series = [];
 	var container = $('#spring-graph');
 	var xMax = (isNaN(end)) ? start + 10 : end;
