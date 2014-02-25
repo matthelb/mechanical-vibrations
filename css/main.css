@@ -8,7 +8,17 @@
 	margin: 0 auto;
 }
 
+#spring-position {
+	color: blue;
+}
 
+#spring-velocity {
+	color: red;
+}
+
+#spring-acceleration {
+	color: green;
+}
 
 
 

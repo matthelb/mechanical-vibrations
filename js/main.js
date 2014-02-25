@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	$('#spring-canvas').attr('width', $('#spring-canvas').width());
+	$('#spring-canvas').attr('height', $('#spring-canvas').width());
 	$('#start-simulation').click(function(){
 		var m = parseFloat($('#m-input').val());
 		var k = parseFloat($('#k-input').val());
@@ -71,12 +73,16 @@ function graph(start, end, spring, seconds) {
 			plot.getOptions().xaxes[0].min += i;
 			plot.getOptions().xaxes[0].max += i;
 		}
-		series.push([t, spring.type.call(t)]);
+		series.push([t, spring.type.getPosition(t)]);
 		t += i;
 		plot.setData([series]);
 		plot.setupGrid();
 		plot.draw();
 		spring.draw(t, $('#spring-canvas')[0]);
+		$('#simulation-time').text(t.toFixed(3));
+		$('#spring-position').text(spring.type.getPosition(t).toFixed(3));
+		$('#spring-velocity').text(spring.type.getVelocity(t).toFixed(3));
+		$('#spring-acceleration').text(spring.type.getAcceleration(t).toFixed(3));
 	}, 16));
 }
 
