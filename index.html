@@ -77,12 +77,12 @@
 		</div>
 	</div>
 
-	<div class="col-lg-10 center">
+	<div class="col-lg-8 center">
 		<div class="row">
 			<div class="text-center">
 				<h1>Mechanical Vibrations</h1>
 			</div>
-			<div class="form-horizontal col-lg-8">
+			<div class="form-horizontal">
 				<div class="form-group">
 					<label class="col-lg-4 control-label required" for="m-input">Mass</label>
 					<div class="col-lg-8">
@@ -126,18 +126,20 @@
 					</div>
 				</div>
 				<div class="form-group text-center">
-					<label class="btn">
-						<input type="radio" name="type" value="UndampedFreeVibration" checked="checked"> Undamped Free
-					</label>
-					<label class="btn">
-						<input type="radio" name="type" value="DampedFreeVibration"> Damped Free
-					</label>
-					<label class="btn">
-						<input type="radio" name="type" value="UndampedForcedVibration"> Undamped Forced
-					</label>
-					<label class="btn">
-						<input type="radio" name="type" value="DampedForcedVibration"> Damped Forced
-					</label>					  	
+					<div class="btn-group">
+						<label class="btn">
+							<input type="radio" name="type" value="UndampedFreeVibration" checked> Undamped Free
+						</label>
+						<label class="btn">
+							<input type="radio" name="type" value="DampedFreeVibration" disabled> Damped Free
+						</label>
+						<label class="btn">
+							<input type="radio" name="type" value="UndampedForcedVibration" disabled> Undamped Forced
+						</label>
+						<label class="btn">
+							<input type="radio" name="type" value="DampedForcedVibration" disabled> Damped Forced
+						</label>		
+					</div>			  	
 				</div>
 				<div class="form-group text-center">
 					<button class="btn" id="start-simulation" data-toggle="modal">Start Simulation</button>

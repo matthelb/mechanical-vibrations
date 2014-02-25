@@ -3,7 +3,7 @@ $(document).ready(function(){
 	$('#spring-canvas').attr('width', $('#spring-canvas').width());
 	$('#spring-canvas').attr('height', $('#spring-canvas').width());
 	$('#start-simulation').click(function(){
-		
+		console.log('Hello?');
 		if(invalidForm()){
 			$('#warning-modal').modal('show');
 			return;
@@ -44,15 +44,15 @@ function initGraph(){
 	var frames = parseInt($('#time-input').val());
 	var start = parseFloat($('#start-input').val());
 	var end = parseFloat($('#end-input').val());
-	if(isNaN(start))
-		start = 0;
-	var spring = new Spring(m, k, y0, v0, UndampedFreeVibration);
+	if(isNaN(start)) start = 0;
+	var type = window[$('input[name=type]:radio:checked').val()];
+	var spring = new Spring(m, k, y0, v0, type);
 	graph(start, end, spring, frames);
 }
 
 function graph(start, end, spring, seconds) {
 	stopGraphing();
-	$("#modal-title").text(spring.type.name);
+	$('#modal-title').text(spring.type.constructor.name.split(/(?=[A-Z])/).join(" "));
 	var series = [];
 	var container = $('#spring-graph');
 	var xMax = (isNaN(end)) ? start + 10 : end;
@@ -85,13 +85,15 @@ function graph(start, end, spring, seconds) {
 	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("yaxisLabel").text("y-displacement (m)"));
 	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("xaxisLabel").text("Time (s)"));
 	var t = start;
-	var i = (isNaN(end)) ? 0.05 : (end - start)/(seconds * 60);
+	var i = (isNaN(end)) ? 0.016666 : (end - start)/(seconds * 60);
 
 	container.data('interval-id', setInterval(function(){
-		if(t >= end) 
+		if(t >= end) {
 			return;
-		if(isNaN(end) && t >= seconds)
+		}
+		if(isNaN(end) && t >= seconds) {
 			return;
+		}
 		if (t >= xMax) {
 			series = series.slice(1);
 			plot.getOptions().xaxes[0].min += i;
