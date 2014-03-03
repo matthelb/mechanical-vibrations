@@ -1,9 +1,17 @@
 $(document).ready(function(){
 	$('.required').append($("<span>").addClass("required-label").text("*"));
+	$('input[name=type]:radio').click(function() {
+		if ($(this).is(':checked')) {
+			if ($(this).attr('value') == 'DampedFreeVibration') {
+				$('#gamma-input').parents('.form-group').show();
+			} else {
+				$('#gamma-input').parents('.form-group').hide();
+			}
+		}
+	});
 	$('#spring-canvas').attr('width', $('#spring-canvas').width());
 	$('#spring-canvas').attr('height', $('#spring-canvas').width());
 	$('#start-simulation').click(function(){
-		console.log('Hello?');
 		if(invalidForm()){
 			$('#warning-modal').modal('show');
 			return;
@@ -32,8 +40,16 @@ function invalidForm(){
 	var frames = parseInt($('#time-input').val());
 	var start = parseFloat($('#start-input').val());
 	var end = parseFloat($('#end-input').val());
-	if(isNaN(m) || isNaN(k) || isNaN(y0) || isNaN(v0)) return true;
-	else return false;
+	var gamma = -1;
+	if ($('#gamma-input').is(':visible')) {
+		gamma = parseFloat($('#gamma-input').val());
+	}
+	if(isNaN(m) || isNaN(k) || isNaN(y0) || isNaN(v0)) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 function initGraph(){
@@ -44,9 +60,15 @@ function initGraph(){
 	var frames = parseInt($('#time-input').val());
 	var start = parseFloat($('#start-input').val());
 	var end = parseFloat($('#end-input').val());
-	if(isNaN(start)) start = 0;
+	if(isNaN(start)) {
+		start = 0;
+	}
 	var type = window[$('input[name=type]:radio:checked').val()];
-	var spring = new Spring(m, k, y0, v0, type);
+	var constants = {'m' : m, 'k' : k, 'y0' : y0, 'v0' : v0};
+	if ($('#gamma-input').is(':visible')) {
+		constants['gamma'] = parseFloat($('#gamma-input').val());
+	}
+	var spring = new Spring(constants, type);
 	graph(start, end, spring, frames);
 }
 
@@ -85,7 +107,7 @@ function graph(start, end, spring, seconds) {
 	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("yaxisLabel").text("y-displacement (m)"));
 	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("xaxisLabel").text("Time (s)"));
 	var t = start;
-	var i = (isNaN(end)) ? 0.016666 : (end - start)/(seconds * 60);
+	var i = (isNaN(end)) ? 0.016 : (end - start)/(seconds * 60);
 
 	container.data('interval-id', setInterval(function(){
 		if(t >= end) {
