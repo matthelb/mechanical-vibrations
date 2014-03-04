@@ -1,18 +1,27 @@
 $(document).ready(function(){
 	$('.required').append($("<span>").addClass("required-label").text("*"));
+	$('input[name=type]:radio').each(function() {
+		resetForm($(this));
+	});
 	$('input[name=type]:radio').click(function() {
-		if ($(this).is(':checked')) {
-			if ($(this).attr('value') == 'DampedFreeVibration') {
-				$('#gamma-input').parents('.form-group').show();
-			} else {
-				$('#gamma-input').parents('.form-group').hide();
-			}
-		}
+		resetForm($(this));
 	});
 	$('#spring-canvas').attr('width', $('#spring-canvas').width());
 	$('#spring-canvas').attr('height', $('#spring-canvas').width());
 	$('#start-simulation').click(function(){
-		if(invalidForm()){
+		var constants = {
+			m : parseFloat($('#m-input').val()),
+			k : parseFloat($('#k-input').val()),
+			y0 : parseFloat($('#y0-input').val()),
+			v0 : parseFloat($('#v0-input').val()),
+			frames : parseInt($('#time-input').val()),
+			start : parseFloat($('#start-input').val()),
+			end : parseFloat($('#end-input').val())
+		};
+		if ($('#gamma-input').is(':visible')) {
+			constants['gamma'] = parseFloat($('#gamma-input').val());
+		}
+		if(invalidForm(constants)){
 			$('#warning-modal').modal('show');
 			return;
 		}
@@ -32,19 +41,17 @@ $(document).ready(function(){
 	});
 });
 
-function invalidForm(){
-	var m = parseFloat($('#m-input').val());
-	var k = parseFloat($('#k-input').val());
-	var y0 = parseFloat($('#y0-input').val());
-	var v0 = parseFloat($('#v0-input').val());
-	var frames = parseInt($('#time-input').val());
-	var start = parseFloat($('#start-input').val());
-	var end = parseFloat($('#end-input').val());
-	var gamma = -1;
-	if ($('#gamma-input').is(':visible')) {
-		gamma = parseFloat($('#gamma-input').val());
+function resetForm(radio) {
+	if (radio.is(':checked')) {
+		if (radio.attr('value') == 'DampedFreeVibration') {
+			$('#gamma-input').parents('.form-group').show();
+		} else {
+			$('#gamma-input').parents('.form-group').hide();
+		}
 	}
-	if(isNaN(m) || isNaN(k) || isNaN(y0) || isNaN(v0)) {
+}
+function invalidForm(constants){
+	if(isNaN(constants['m']) || isNaN(constants['k']) || isNaN(constants['y0']) || isNaN(constants['v0'])) {
 		return true;
 	}
 	else {

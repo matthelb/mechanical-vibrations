@@ -96,19 +96,29 @@ function DampedFreeVibration(constants) {
 	this.wd = this.w0 * Math.sqrt(1 - this.gamma * this.gamma);
 	this.determinant = this.gamma * this.gamma - 4 * this.m * this.k;
 	this.mu = -this.gamma / 2 / this.m;
-	this.v = Math.sqrt(this.determinant / 2 / this.m);
 	if (this.determinant < 0) {
 		this.getPosition = this.getPositionUnderdamped;
 		this.getVelocity = this.getVelocityUnderdamped;
 		this.getAcceleration = this.getAccelerationUnderdamped;
+		this.getAmplitude = this.getAmplitudeUnderdamped;
+		this.getMaximumVelocity = this.getMaximumVelocityUnderdamped;
+		this.getMaximumAcceleration = this.getMaximumAccelerationUnderdamped;
 	} else if (this.determinant > 0) {
 		this.getPosition = this.getPositionOverdamped;
 		this.getVelocity = this.getVelocityOverdamped;
 		this.getAcceleration = this.getAccelerationOverdamped;
+		this.getAmplitude = this.getAmplitudeOverdamped;
+		this.getMaximumVelocity = this.getMaximumVelocityOverdamped;
+		this.getMaximumAcceleration = this.getMaximumAccelerationOverdamped;
+		this.root1 = this.mu + Math.sqrt(this.determinant) / 2 / this.m;
+		this.root2 = this.mu - Math.sqrt(this.determinant) / 2 / this.m;
 	} else {
 		this.getPosition = this.getPositionCriticallyDamped;
 		this.getVelocity = this.getVelocityCriticallyDamped;
 		this.getAcceleration = this.getAccelerationCriticallyDamped;
+		this.getAmplitude = this.getAmplitudeCriticallyDamped;
+		this.getMaximumVelocity = this.getMaximumVelocityCriticallyDamped;
+		this.getMaximumAcceleration = this.getMaximumAccelerationCriticallyDamped;	
 	}
 }
 
@@ -116,22 +126,70 @@ DampedFreeVibration.prototype.getPositionUnderdamped = function(t) {
 	return Math.exp(this.mu * t) * (this.y0 * Math.cos(this.wd * t) + this.v0 / this.w0 * Math.sin(this.wd * t));
 }
 
-DampedFreeVibration.prototype.getAmplitude = function() {
-	return Math.max(Math.abs(this.y0), Math.abs(this.v0 / this.w0));
-}
-
-DampedFreeVibration.prototype.getMaximumVelocity = function() {
-	return 0;
-}
-
-DampedFreeVibration.prototype.getMaximumAcceleration = function() {
-	return 0;
-}
-
 DampedFreeVibration.prototype.getVelocityUnderdamped = function(t) {
-	return -Math.exp(-this.determinant * t) * (this.y0 * this.determinant * Math.cos(this.wd * t) - this.v0 / this.w0 * this.wd * Math.cos(this.wd * t) + this.y0 * this.gamma * Math.sin(this.gamma * t) + this.v0 / this.w0 * this.determinant * Math.sin(this.wd * t));
+	return 0;//return -Math.exp(-this.determinant * t) * (this.y0 * this.determinant * Math.cos(this.wd * t) - this.v0 / this.w0 * this.wd * Math.cos(this.wd * t) + this.y0 * this.gamma * Math.sin(this.gamma * t) + this.v0 / this.w0 * this.determinant * Math.sin(this.wd * t));
 }
 
 DampedFreeVibration.prototype.getAccelerationUnderdamped = function(t) {
-	return Math.exp(-this.determinant *  t) * (-this.determinant * this.wd * this.wd * Math.cos(this.wd * t) + this.y0 * this.determinant * this.determinant * Math.cos(this.wd * t) + 2 * this.y0 * this.wd * this.determinant * Math.sin(this.wd * t)+this.v0 / this.w0 * this.determinant * this.determinant * Math.sin(this.gamma * t) - 2 * this.v0 / this.w0 * this.determinant * this.gamma * Math.cos(this.gamma * t) - this.v0 / this.w0 * this.gamma * this.gamma * Math.sin(this.gamma * t));
+	return 0;//return Math.exp(-this.determinant *  t) * (-this.determinant * this.wd * this.wd * Math.cos(this.wd * t) + this.y0 * this.determinant * this.determinant * Math.cos(this.wd * t) + 2 * this.y0 * this.wd * this.determinant * Math.sin(this.wd * t)+this.v0 / this.w0 * this.determinant * this.determinant * Math.sin(this.gamma * t) - 2 * this.v0 / this.w0 * this.determinant * this.gamma * Math.cos(this.gamma * t) - this.v0 / this.w0 * this.gamma * this.gamma * Math.sin(this.gamma * t));
+}
+
+DampedFreeVibration.prototype.getAmplitudeUnderdamped = function() {
+	return Math.max(Math.abs(this.y0), Math.abs(this.v0 / this.w0));
+}
+
+DampedFreeVibration.prototype.getMaximumVelocityUnderdamped = function() {
+	return 0;
+}
+
+DampedFreeVibration.prototype.getMaximumAccelerationUnderdamped = function() {
+	return 0;
+}
+
+DampedFreeVibration.prototype.getPositionCriticallyDamped = function(t) {
+	return (this.y0 + this.v0 / this.w0 * t) * Math.exp(this.mu * t);
+}
+
+DampedFreeVibration.prototype.getVelocityCriticallyDamped = function(t) {
+	return (this.y0 * this.mu + this.v0 / this.w0 * this.mu * t + this.v0 / this.w0) * Math.exp(this.mu * t);
+}
+
+DampedFreeVibration.prototype.getAccelerationCriticallyDamped = function(t) {
+	return (this.y0 * this.mu + this.v0 / this.w0 * this.mu * t + 2 * this.v0 / this.w0) * this.mu * Math.exp(this.mu * t);
+}
+
+DampedFreeVibration.prototype.getAmplitudeCriticallyDamped = function() {
+	return Math.abs(this.y0);
+}
+
+DampedFreeVibration.prototype.getMaximumVelocityCriticallyDamped = function() {
+	return Math.abs(this.y0 * this.mu + this.v0 / this.w0);
+}
+
+DampedFreeVibration.prototype.getMaximumAccelerationCriticallyDamped = function() {
+	return Math.abs(this.mu * this.mu * this.y0 + 2 * this.mu * this.v0 / this.w0);
+}
+
+DampedFreeVibration.prototype.getPositionOverdamped = function(t) {
+	return this.y0 * Math.exp(this.root1 * t) + this.v0 / this.w0 * Math.exp(this.root2 * t);
+}
+
+DampedFreeVibration.prototype.getVelocityOverdamped = function(t) {
+	return this.y0 * this.root1 * Math.exp(this.root1 * t) + this.v0 / this.w0 * this.root2 * Math.exp(this.root2 * t);
+}
+
+DampedFreeVibration.prototype.getAccelerationOverdamped = function(t) {
+	return this.y0 * this.root1 * this.root1 * Math.exp(this.root1 * t) + this.v0 / this.w0 * this.root2 * this.root2 * Math.exp(this.root2 * t);
+}
+
+DampedFreeVibration.prototype.getAmplitudeOverdamped = function() {
+	return Math.abs(this.y0 + this.v0 / this.w0);
+}
+
+DampedFreeVibration.prototype.getMaximumVelocityOverdamped = function() {
+	return Math.abs(this.y0 * this.root1 + this.v0 / this.w0 * this.root2);
+}
+
+DampedFreeVibration.prototype.getMaximumAccelerationOverdamped = function() {
+	return Math.abs(this.y0 * this.root1 * this.root1 + this.v0 / this.w0 * this.root2 * this.root2);
 }
