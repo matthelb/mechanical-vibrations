@@ -44,9 +44,9 @@ $(document).ready(function(){
 function resetForm(radio) {
 	if (radio.is(':checked')) {
 		if (radio.attr('value') == 'DampedFreeVibration') {
-			$('#gamma-input').parents('.form-group').show();
+			$('#gamma-input').parents('.form-group').fadeIn();
 		} else {
-			$('#gamma-input').parents('.form-group').hide();
+			$('#gamma-input').parents('.form-group').fadeOut();
 		}
 	}
 }
