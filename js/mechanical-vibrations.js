@@ -17,11 +17,6 @@ Spring.prototype.draw = function(t, canvas) {
 	context.strokeStyle = "black";
 	drawZigZag(context, m, 0, n, i, 8);
 	drawZigZag(context, m, 0, n, i, -8);
-/*	var imageObj = new Image();
-	imageObj.src = 'weight.png';
-	imageObj.onload = function(){
-		context.drawImage(imageObj, x, y, size, size);
-	}*/
 	context.fillRect(x, y, size, size);
 	context.strokeStyle = "red";
 	drawVector(context, canvas.width - 20, canvas.height / 2, this.type.getVelocity(t), this.type.getMaximumVelocity(), canvas.height / 4, 8);
