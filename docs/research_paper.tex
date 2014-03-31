@@ -11,12 +11,13 @@
 \usepackage{xunicode} % Unicode support for LaTeX character names (accents, European chars, etc)
 \usepackage{xltxtra} % Extra customizations for XeLaTeX
 \usepackage{multicol}
+\usepackage{amsmath}
 
 %\setsansfont{Deja Vu Sans}
 %\setmonofont{Deja Vu Mono}
 
 % other LaTeX packages.....
-\usepackage{geometry} % See geometry.pdf to learn the layout options. There are lots.
+\usepackage[margin=1.0in]{geometry} % See geometry.pdf to learn the layout options. There are lots.
 \geometry{a4paper} % or letterpaper (US) or a5paper or....
 %\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
 
@@ -35,27 +36,65 @@
 \begin{flushleft}
 \section{Introduction}
 
-The goal of this project is to demonstrate the mathematical and visual properties of mechanical vibrations. These vibrations are visualized through a mass-spring system, where a hanging solid has its position, velocity and acceleration determined by a set of environmental variables. Mechanical vibrations are described with a set of differential equations: when solved, we can find the position equation $y(t)$. This solution was used to graph the position of an object using JavaScript in a web browser application, where the use can set the environmental variables.
+The goal of this project is to demonstrate the mathematical and physical properties of mechanical vibrations. These vibrations are visualized through a mass-spring system, where a hanging solid has its position, velocity and acceleration determined by a set of environmental variables. In order to determine the position, velocity, and acceleration of a vibrating object, we developed a computer program that takes physical constant variables as inputs and resolves these into a graphical simulation of a spring system.
 
-In this project, we explored four types of equations, each one including different environmental factors:
+Mechanical vibrations are described with a set of differential equations, which are solved for the position equation $y(t)$. The most general situation occurs by solving the equation $ay'' + by' + cy = g(t)$. In this project, we explored four types of equations, each one including different environmental factors:
+
 \begin{enumerate}
 	\item Undamped Free Vibration
 
 	\item Damped Free Vibration
 
-	\item Undamped Forced Vibration
+	\item Forced Vibration
 
-	\item Damped Forced Vibration
 \end{enumerate} 
 
-The simplest, Undamped Free Vibration, satisfies the homogeneous differential equation $my'' + \omega_0^2 y = 0$. This equation has a simple solution, solely depending upon the values of the spring constant $k$, the mass of the weight $m$, initial velocity $v_0$, and intial position $y_0$, and where $\omega_0^2 = k/m$
+The simplest, undamped free vibration, occurs when an object vibrates freely and without damping. This situation satisfies the differential equation $ay'' + by' + cy = g(t)$ where $b = 0$ and $g(t) = 0$. This equation has a simple solution, solely depending on the values of $a$ and $c$.
 
-Damped Free Vibration includes a damping term upon the equation
+Damped free vibration includes a damping term in the equation, which satisfies the equation $ay'' + by' + cy = g(t)$ where $g(t) = 0$. This case requires different solutions depending on the value of $b$.
+
+Forced vibrations describes the situation where the object is acted upon by an external force $g(t)$. This satisfies the equation $ay'' + by' + cy = g(t)$. As with free vibrations, there are one or multiple solutions depending on the value of $b$. Although a programmatic solution for all possible functions could possibly exist, in our simulation we only allowed for $g(t)$ to be a polynomial, exponential, or sinusoidal function, or a product of the three. Such a general solution would be outside the scope of this project.
+
+We chose to implement this program in JavaScript, so that it would be accessible to most people through their browser. Additional information, such as the velocity and acceleration were calculated by finding the derivatives with Wolfram Alpha. The results were visualized with a JavaScript graphing library, Flot, and the spring-mass system was drawn using HTML5 Canvas.
+
+
+\section {Methods for Solving Second Order Differential Equations}
+
+A linear second order differential equation is defined as $ay'' + by' + cy = g(t)$. There are two types of equations associated with this form.
+
+When $g(t) = 0$, this equation is called homogenous. A homogenous equation has a characteristic equation which follows the form $a\lambda^2 + b\lambda + c = 0$. The solution $y(t)$ to the differential equation depends on the number of roots in the characteristic equation.
+
+When $b^2 - 4ac > 0$, the equation has two real roots $\lambda_1$ and $\lambda_2$. The general solution to this is
+\begin{equation}
+y(t) = c_1e^{\lambda_1t} + c_2e^{\lambda_2t}
+\end{equation}
+
+When $b^2 - 4ac = 0$, then the equation has one real root $\lambda$, as $\lambda_1 = \lambda_2$. The general solution follows the form
+\begin{equation}
+y(t) = c_1e^{{\lambda}t} + c_2te^{{\lambda}t}
+\end{equation}
+
+When $b^2 - 4ac < 0$, then the equation has two complex roots $\lambda_1 = \mu + iv$ and $\lambda_2 = \mu - iv$. The general solution is 
+\begin{equation}
+y(t) = c_1e^{vt}cos(vt) + c_2te^{vt}sin(vt)
+\end{equation}
+
+When $g(t) \neq 0$, the equation is called nonhomogeneous. The general solution to the nonhomogoneous equation is comprised of two parts: a homogenous solution $y_h(t)$, which is the solution to $ay'' + by' + c = 0$, and a particular solution $y_p(t)$ for the whole equation. The solution for the entire nonhomogenous equation is $y(t) = y_h(t) + y_p(t)$. The particular solution, for the functions that we allow, is defined as
+\begin{equation} \label{eq:generalized}
+\begin{split}
+y_p(t)=\\(A_0 + A_1t + A_2t^2 + ... + A_nt^n)(e^{{\alpha}t})(cos({\beta}t))\\+ (B_0 + B_1t + B_2t^2 + ... + B_nt^n)(e^{{\alpha}t})(sin({\beta}t))
+\end{split}
+\end{equation}
+
+To determine the undetermined constants, find  the first and second derivatives of $y_p(t)$, and substitute $y_p(t)$, $y_p'(t)$ and $y_p''(t)$ for $y$, $y'$ and $y''$, respectively. This should result in a real solution for $A$ and $B$.
+
+\section {Generalized Solutions}
+\subsection {Undamped Free Vibration}
+lksaddjflsjkf
+\subsection {Damped Free Vibration}
+kajsdlfkj
 
 \end{flushleft}
-
-\section {}
-
 \end{multicols}
 
 
