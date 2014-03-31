@@ -48,6 +48,11 @@ function resetForm(radio) {
 		} else {
 			$('#gamma-input').parents('.form-group').fadeOut();
 		}
+		if (radio.attr('value') == 'UndampedForcedVibration') {
+			$('#f-input').parents('.form-group').fadeIn();
+		} else {
+			$('#f-input').parents('.form-group').fadeOut();
+		}
 	}
 }
 function invalidForm(constants){

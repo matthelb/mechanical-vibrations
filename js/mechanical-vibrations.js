@@ -1,5 +1,11 @@
-function Spring(constants, type) {
-	this.type = new type(constants);
+/***
+* Spring
+*     Represents a springlike object which adheres to a specific type of mechanical vibration.
+*     Can be drawn to a canvas
+***/ 
+
+function Spring(params, type) {
+	this.type = new type(params);
 	this.y = this.type.getPosition;
 }
 
@@ -49,11 +55,99 @@ function drawVector(context, x, y, v, maxValue, maxLength, arrowWidth) {
 	context.closePath();
 }
 
-function UndampedFreeVibration(constants) {
-	this.m = constants['m'];
-	this.k = constants['k'];
-	this.y0 = constants['y0'];
-	this.v0 = constants['v0'];
+/***
+* End Spring
+***/
+
+/***
+* ____Function
+*     A set of classes which represent different mathematical functions that can be evaluated at a specific value
+***/
+
+/***
+* PolynomialFunction
+*     Takes an array of constants, c, where the (length of the array - 1) is the degree, n,  of the polynomial
+*     Function is of the form: c[0] + c[1] * x + c[2] * x^2 ... + c[n] * x ^ n
+***/
+function PolynomialFunction(c) {
+	this.c = c;
+}
+
+PolynomialFunction.prototype.evaluate = function(x) {
+	var sum = 0;
+	if (this.c.length > 0) {
+		sum = this.c[0];
+		for (var i = 1; i < this.c.length; ++i) {
+			sum += this.c[i] * Math.pow(x, i);
+		}
+	}
+	return sum;
+}
+
+PolynomialFunction.prototype.derivative = function() {
+	var constants = [];
+	if (this.c.length > 0) {
+		for (var i = 1; i < this.c.length; ++i) {
+			constants.push(i * this.c[i]);
+		}
+	}
+	return new PolynomialFunction(constants);
+}
+
+/***
+* ExponentialFunction
+*     Takes two constants, a and k
+*     Function is of the form: a * e ^ k*x
+***/
+function ExponentialFunction(a, k) {
+	this.a = a;
+	this.k = k;
+}
+
+ExponentialFunction.prototype.evaluate = function(x) {
+	return this.a * Math.exp(this.k * x);
+}
+
+ExponentialFunction.prototype.derivative = function() {
+	return new ExponentialFunction(this.a * this.k, this.k);
+}
+
+/***
+* SinusoidalFunction
+*     Takes 3 constants, a, w, and p, and a sinusoidal function, f
+*         f can either be Math.sin or Math.cos
+*     Function is of the form: a * f(w*x + p)
+***/
+function SinusoidalFunction(a, w, p, f) {
+	this.a = a;
+	this.w = w;
+	this.p = p;
+	this.f = f;
+}
+
+SinusoidalFunction.prototype.evaluate = function(x) {
+	return this.a * this.f(this.w*x + this.p);
+}
+
+SinusoidalFunction.prototype.derivative = function() {
+	if (this.f == Math.sin) {
+		return new SinusoidalFunction(this.a * this.w, this.w, this.p, Math.cos);
+	} else if (this.f = Math.cos) {
+		return new SinusoidalFunction(-this.a * this.w, this.w, this.p, Math.sin);
+	} else {
+		return -1;
+	}
+}
+
+/***
+* UndampedFreeVibration
+*     Takes an array of constants that must contain m, k, y0, and v0
+***/
+function UndampedFreeVibration(params) {
+	this.m = params['m'];
+	this.k = params['k'];
+	this.y0 = params['y0'];
+	this.v0 = params['v0'];
 	this.w0 = Math.sqrt(this.k / this.m);
 }
 
@@ -81,12 +175,16 @@ UndampedFreeVibration.prototype.getMaximumAcceleration = function(t) {
 	return Math.max(Math.abs(this.v0 * this.w0), Math.abs(this.y0 * this.w0 * this.w0));
 }
 
-function DampedFreeVibration(constants) {
-	this.m = constants['m'];
-	this.k = constants['k'];
-	this.y0 = constants['y0'];
-	this.v0 = constants['v0'];
-	this.gamma = constants['gamma'];
+/***
+* DampedFreeVibration
+*     Takes an array of constants that must contain m, k, y0, v0, and gamma
+***/
+function DampedFreeVibration(params) {
+	this.m = params['m'];
+	this.k = params['k'];
+	this.y0 = params['y0'];
+	this.v0 = params['v0'];
+	this.gamma = params['gamma'];
 	this.w0 = Math.sqrt(this.k / this.m);
 	this.A = this.y0;
 	this.B = this.v0 / this.w0;
@@ -189,4 +287,32 @@ DampedFreeVibration.prototype.getMaximumVelocityOverdamped = function() {
 
 DampedFreeVibration.prototype.getMaximumAccelerationOverdamped = function() {
 	return Math.abs(this.A * this.root1 * this.root1 + this.B * this.root2 * this.root2);
+}
+
+function UndampedForcedVibration(params) {
+	this.free = new UndampedFreeVibration(params);
+}
+
+UndampedForcedVibration.prototype.getPosition = function(t) {
+	return this.free(t) + this.yp(t);
+}
+
+UndampedForcedVibration.prototype.getAmplitude = function() {
+	return 0;
+}
+
+UndampedForcedVibration.prototype.getVelocity = function(t) {
+	return 0;
+}
+
+UndampedForcedVibration.prototype.getMaximumVelocity = function(t) {
+	return 0;
+}
+
+UndampedForcedVibration.prototype.getAcceleration = function(t) {
+	return 0;
+}
+
+UndampedForcedVibration.prototype.getMaximumAcceleration = function(t) {
+	return 0;
 }
