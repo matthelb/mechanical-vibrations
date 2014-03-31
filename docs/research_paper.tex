@@ -1,0 +1,49 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8
+
+% This is a simple template for a XeLaTeX document using the "article" class,
+% with the fontspec package to easily select fonts.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage{fontspec} % Font selection for XeLaTeX; see fontspec.pdf for documentation
+\defaultfontfeatures{Mapping=tex-text} % to support TeX conventions like ``---''
+\usepackage{xunicode} % Unicode support for LaTeX character names (accents, European chars, etc)
+\usepackage{xltxtra} % Extra customizations for XeLaTeX
+\usepackage{multicol}
+
+%\setsansfont{Deja Vu Sans}
+%\setmonofont{Deja Vu Mono}
+
+% other LaTeX packages.....
+\usepackage{geometry} % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+%\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\title{Mechanical Vibrations of Spring Systems}
+\author{Matthew Burke and Ananth Mohan}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\begin{multicols}{2}
+
+\begin{flushleft}
+\section{Introduction}
+
+The goal of this project is to demonstrate the mathematical and visual properties of mechanical vibrations. These vibrations are visualized through a mass-spring system, where a hanging solid has its position, velocity and acceleration determined by a set of environmental variables. Mechanical vibrations are described with a set of differential equations: when solved, we can find the position equation $y(t)$. This solution was used to graph the position of an object using JavaScript in a web browser application, where the use can set the environmental variables.
+
+\end{flushleft}
+
+\section {}
+
+\end{multicols}
+
+
+
+
+\end{document}
