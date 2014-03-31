@@ -190,3 +190,7 @@ DampedFreeVibration.prototype.getMaximumVelocityOverdamped = function() {
 DampedFreeVibration.prototype.getMaximumAccelerationOverdamped = function() {
 	return Math.abs(this.A * this.root1 * this.root1 + this.B * this.root2 * this.root2);
 }
+
+function UndampedForcedVibration(constants){
+
+}
