@@ -92,7 +92,7 @@
 							<input type="radio" name="type" value="DampedFreeVibration"> Damped Free
 						</label>
 						<label class="btn">
-							<input type="radio" name="type" value="UndampedForcedVibration" disabled> Undamped Forced
+							<input type="radio" name="type" value="UndampedForcedVibration"> Undamped Forced
 						</label>
 						<label class="btn">
 							<input type="radio" name="type" value="DampedForcedVibration" disabled> Damped Forced
@@ -109,6 +109,12 @@
 					<label class="col-lg-4 control-label required" for="k-input">Spring Constant</label>
 					<div class="col-lg-8">
 						<input class="form-control" type="text" id="k-input" placeholder="Input a k value." value="100" />
+					</div>
+				</div>
+				<div class="form-group" style="display: none;">
+					<label class="col-lg-4 control-label required" for="f-input">F(t)</label>
+					<div class="col-lg-8">
+						<input class="form-control" type="text" id="f-input" placeholder="F(t)" value="x^2"/>
 					</div>
 				</div>
 				<div class="form-group" style="display: none;">
