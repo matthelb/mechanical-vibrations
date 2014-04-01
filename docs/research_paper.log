@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.4-0.9998 (MiKTeX 2.9 64-bit) (preloaded format=xelatex 2014.3.30)  31 MAR 2014 01:13
+This is XeTeX, Version 3.1415926-2.4-0.9998 (MiKTeX 2.9 64-bit) (preloaded format=xelatex 2014.3.30)  1 APR 2014 11:16
 entering extended mode
 **research_paper.tex
 (C:\wamp\apps\mechanical-vibrations\docs\research_paper.tex
@@ -702,15 +702,15 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(72.26999pt, 452.9679pt, 72.26999pt)
-* v-part:(T,H,B)=(72.26999pt, 700.50687pt, 72.26999pt)
+* h-part:(L,W,R)=(36.135pt, 525.23788pt, 36.135pt)
+* v-part:(T,H,B)=(36.135pt, 772.77686pt, 36.135pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=452.9679pt
-* \textheight=700.50687pt
-* \oddsidemargin=0.0pt
-* \evensidemargin=0.0pt
-* \topmargin=-37.0pt
+* \textwidth=525.23788pt
+* \textheight=772.77686pt
+* \oddsidemargin=-36.135pt
+* \evensidemargin=-36.135pt
+* \topmargin=-73.135pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=11.0pt
@@ -770,23 +770,18 @@ Requested font "cmsy10" at 10.95pt
  -> cmsy10
 Requested font "cmex10" at 10.95pt
  -> cmex10
-[1
-
-]
 Requested font "[lmroman12-bold]:mapping=tex-text" at 12.0pt
  -> C:/Program Files/MiKTeX 2.9/fonts/opentype/public/lm/lmroman12-bold.otf
- [2] (C:\wamp\apps\mechanical-vibrations\docs\research_paper.aux)
+[1
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] [2] (C:\wamp\apps\mechanical-vibrations\docs\research_paper.aux) ) 
 Here is how much of TeX's memory you used:
  14033 strings out of 429035
  282009 string characters out of 3167909
- 333357 words of memory out of 3000000
+ 335361 words of memory out of 3000000
  17167 multiletter control sequences out of 15000+200000
  8294 words of font info for 43 fonts, out of 3000000 for 9000
  912 hyphenation exceptions out of 8191
- 46i,16n,35p,10470b,310s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 46i,16n,35p,10470b,291s stack positions out of 5000i,500n,10000p,200000b,50000s
 
 Output written on research_paper.pdf (2 pages).
