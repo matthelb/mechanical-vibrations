@@ -71,18 +71,18 @@ A linear second order differential equation is defined as $ay'' + by' + cy = g(t
 When $g(t) = 0$, this equation is called homogenous. A homogenous equation has a characteristic equation which follows the form $a\lambda^2 + b\lambda + c = 0$. The solution $y(t)$ to the differential equation depends on the number of roots in the characteristic equation.
 
 When $b^2 - 4ac > 0$, the equation has two real roots $\lambda_1$ and $\lambda_2$. The general solution to this is
-\begin{equation}\label{eq:underdamped}
+\begin{equation}\label{eq:two_real_roots}
 y(t) = c_1e^{\lambda_1t} + c_2e^{\lambda_2t}
 \end{equation}
 
 When $b^2 - 4ac = 0$, then the equation has one real root $\lambda$, as $\lambda_1 = \lambda_2$. The general solution follows the form
-\begin{equation}\label{eq:critically_damped}
+\begin{equation}\label{eq:one_real_root}
 y(t) = c_1e^{{\lambda}t} + c_2te^{{\lambda}t}
 \end{equation}
 
 When $b^2 - 4ac < 0$, then the equation has two complex roots $\lambda_1 = \mu + iv$ and $\lambda_2 = \mu - iv$. The general solution is 
-\begin{equation}\label{eq:overdamped}
-y(t) = c_1e^{vt}cos(vt) + c_2te^{vt}sin(vt)
+\begin{equation}\label{eq:two_complex_roots}
+y(t) = c_1e^{vt}cos(vt) + c_2e^{vt}sin(vt)
 \end{equation}
 
 When $g(t) \neq 0$, the equation is called nonhomogeneous. The general solution to the nonhomogoneous equation is comprised of two parts: a homogenous solution $y_h(t)$, which is the solution to $ay'' + by' + c = 0$, and a particular solution $y_p(t)$ for the whole equation. The solution for the entire nonhomogenous equation is $y(t) = y_h(t) + y_p(t)$. The particular solution, for the functions that we allow, is defined as
@@ -119,32 +119,46 @@ As seen in Figure 1, an undamped free vibration is a sinusoidal wave which does 
 \subsection {Damped Free Vibration}
 Damped free vibrations are described by the homogenous differential equation $ay'' + by' +cy = 0$, and the general form of the vibration is $my'' + {\gamma}y' + ky = 0$. In this case, $\gamma$ is a positive damping term, $m$ is the mass, and $k$ is the spring constant.
 
-Because the characteristic equation is found by solving for the roots of the equation $m{\lambda}^2 + {\gamma}{\lambda} + k = 0$, there are three possible forms of the characteristic equation.
-
-\subsubsection {Underdamped Harmonic Motion}
-If ${\gamma}^2 - 4mk < 0$, then the equation has a solution with complex roots $\frac{-\gamma}{2m} \pm iv$, where $v = \frac{\sqrt{4mk - {\gamma}^2}}{2m}$. Therefore by \eqref{eq:underdamped}, the characteristic equation in this case is:
-\begin{equation}
-y(t) = e^{{\frac{-\gamma}{2m}}}(Acos(vt) + Bsin(vt))
-\end{equation}
-
-\subsubsection {Critically Damping Harmonic Motion}
-In this case, ${\gamma}^2 = 4mk$, which has a single real root $\frac{-\gamma}{2m}$. Therefore by \eqref{eq:critically_damped}, the characterstic equation is simply:
-\begin{equation}
-y(t) = (A + Bt)e^{{\frac{-\gamma}{2m}}}	
-\end{equation}
-
+The characteristic equation for this differential equation is $m{\lambda}^2 + {\gamma}{\lambda} + k = 0$. Because the coefficient, $\gamma$, can be non-zero, the characteristic equation will either have two real roots, one real root, or two complex roots.
 \subsubsection {Overdamped Harmonic Motion}
-In the final case when ${\gamma}^2 - 4mk > 0$, the general equation has two real roots ${\lambda}_1$, ${\lambda}_2$ of ${\frac{-\gamma}{2m}} \pm \frac{\sqrt{4mk - {\gamma}^2}}{2m}$. By \eqref{eq:overdamped}, the characteristic equation is therefore:
+If ${\gamma}^2 - 4mk > 0$, then the equation is solved with two real roots ${\lambda}_{1,2} = {\frac{-\gamma}{2m}} \pm \frac{\sqrt{4mk - {\gamma}^2}}{2m}$. Therefore by \eqref{eq:two_real_roots}, the general solution will be:
 \begin{equation}
 y(t) = Ae^{{\lambda}_1t} + Be^{{\lambda}_2t}
 \end{equation}
 
+\begin{Figure}
+ \centering
+ \includegraphics[width=\linewidth]{overdamped_free.png}
+ \captionof{figure}{Simulation of underdamped free vibration with $m = 10$, $k = 2.5$, $\gamma = 15$, $y_0 = 10$, $v_0 = 10$, over the period $t = [0, 20]$}
+\end{Figure}
+
+
+\subsubsection {Critically Damped Harmonic Motion}
+If ${\gamma}^2 = 4mk$, then the equation is solved with on real root ${\lambda}_1 = {\lambda}_2 = \frac{-\gamma}{2m}$. Therefore by \eqref{eq:one_real_root}, the general soltution will be:
+\begin{equation}
+y(t) = (A + Bt)e^{{\frac{-\gamma}{2m}}}	
+\end{equation}
+
+\begin{Figure}
+ \centering
+ \includegraphics[width=\linewidth]{critically_damped_free.png}
+ \captionof{figure}{Simulation of underdamped free vibration with $m = 10$, $k = 2.5$, $\gamma = 10$, $y_0 = 10$, $v_0 = 10$, over the period $t = [0, 20]$}
+\end{Figure}
+
+\subsubsection {Underdamped Harmonic Motion}
+If ${\gamma}^2 - 4mk < 0$, then the equation is solved with two complex roots ${\lambda}_{1,2} = \frac{-\gamma}{2m} \pm iv$, where $v = \frac{\sqrt{4mk - {\gamma}^2}}{2m}$. Therefore by \eqref{eq:two_complex_roots}, the general solution will be:
+\begin{equation}
+y(t) = e^{{\frac{-\gamma}{2m}}}(Acos(vt) + Bsin(vt))
+\end{equation}
+
+\begin{Figure}
+ \centering
+ \includegraphics[width=\linewidth]{underdamped_free.png}
+ \captionof{figure}{Simulation of underdamped free vibration with $m = 100$, $k = 100$, $\gamma = 10$, $y_0 = 10$, $v_0 = 30$, over the period $t = [0, 25]$}
+\end{Figure}
 
 \subsection {Forced Vibration}
 %\end{flushleft}
 \end{multicols}
-
-
-
 
 \end{document}
