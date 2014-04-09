@@ -61,7 +61,11 @@ sub { top: 0.4em; }
 
 .const-area {
     text-align: center;
-    width: 15px;
+    width: 25px;
     margin: 0px 2px 0px 2px;
     padding: 2px;
+}
+
+#f-input div {
+    display: inline-block;
 }

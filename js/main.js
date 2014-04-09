@@ -39,6 +39,8 @@ $(document).ready(function(){
 	$('#resume-simulation').click(function(){
 		initGraph();
 	});
+
+	bindPolynomials();
 });
 
 function resetForm(radio) {
@@ -151,4 +153,41 @@ function stopGraphing() {
 	if (id) {
 		clearInterval(id);
 	}
+}
+
+function bindPolynomials(){
+	var currentDegree = 2;
+	$('#increase-degree').click(function(){
+		if(increaseDegree(currentDegree)){
+			currentDegree++;
+			$('#current-degree').text(currentDegree);
+		}
+	});
+
+	$('#decrease-degree').click(function(){
+		if(decreaseDegree(currentDegree)){
+			currentDegree--;
+			$('#current-degree').text(currentDegree);
+		}
+	});
+}
+
+function increaseDegree(currentDegree){
+	var newVariable = $('<div>').addClass('polynomial-field').css('display', 'none')
+				.append($('<input>').addClass("polynomial const-area").attr('id','x'+(currentDegree+1)).attr('value', 1))
+				.append($('<span>').addClass("polynomial-label")
+						.html('x<sup>' + (currentDegree != 0 ? (currentDegree+1) : '') + '</sup> + '));
+	$('#polynomial-area').prepend(newVariable);
+	newVariable.fadeIn(150);
+	return true;
+}
+
+function decreaseDegree(currentDegree){
+	if(currentDegree > 0){
+		$('#polynomial-area div:first-child').fadeOut(150, function(){
+			$(this).remove();
+		});
+		return true;
+	}
+	return false;
 }

@@ -115,12 +115,32 @@
 					<label class="col-lg-4 control-label required" for="f-input">F(t) = </label>
 					<div class="col-lg-8">
 						<div id="f-input">
-							e<sup><input class="const-area" type="text" id="alpha-input" placeholder="&alpha;" value="2"/>t</sup>
+							(
+							<div id="polynomial-area">
+								<div class="polynomial-field">
+									<input class="polynomial const-area" id="x2" value="1">
+									<span class="polynomial-label">x<sup>2</sup> + </span>
+								</div>
+								<div class="polynomial-field" id="x1">
+									<input class="polynomial const-area" id="x1" value="2">
+									<span class="polynomial-label">x<sup></sup> + </span>
+								</div>
+								<div class="polynomial-field" id="x0">
+									<input class="polynomial const-area" id="x0" value="2">
+								</div>
+							</div>
+							)
+							[e<sup><input class="const-area" type="text" id="alpha-input" placeholder="&alpha;" value="2"/>t</sup>
 							<select id="wavetype-input">
 								<option value="sin">sin</option>
 								<option value="cos">cos</option>
 							</select>
-							(<input class="const-area" type="text" id="beta-input" placeholder="&beta;" value="2">t)
+							(<input class="const-area" type="text" id="beta-input" placeholder="&beta;" value="2">t)]
+							<div id="polynomial-buttons" style="float:right;">
+								<span>Degree of Polynomial: <span id="current-degree">2</span></span>
+								<button id="increase-degree">+</button>
+								<button id="decrease-degree">-</button>
+							</div>
 						</div>
 					</div>
 				</div>
