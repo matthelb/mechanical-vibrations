@@ -82,6 +82,15 @@ function initGraph(){
 	if ($('#gamma-input').is(':visible')) {
 		constants['gamma'] = parseFloat($('#gamma-input').val());
 	}
+	if ($('#f-input').is(':visible')) {
+		constants['polynomial'] = [];
+		for(var i = 0;i < $('.polynomial.const-area').length;i++){
+			constants['polynomial'][i] = parseFloat($('#x' + i).val());
+		}
+		constants['alpha'] = parseFloat($('#alpha-input').val());
+		constants['wavetype'] = $('#wavetype-input').val() == 'sin' ? Math.sin : Math.cos;
+		constants['beta'] = parseFloat($('#beta-input').val());
+	}
 	var spring = new Spring(constants, type);
 	graph(start, end, spring, frames);
 }

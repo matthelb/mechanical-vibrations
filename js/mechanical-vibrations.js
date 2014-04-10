@@ -226,7 +226,7 @@ DampedFreeVibration.prototype.getVelocityUnderdamped = function(t) {
 }
 
 DampedFreeVibration.prototype.getAccelerationUnderdamped = function(t) {
-	return Math.exp(this.mu * t) * (Math.sin(t*this.wd)*(this.B*(this.mu * this.mu - this.wd * this.wd) - 2 * this.A * this.mu * this.wd) + Math.cos(t*this.wd)*(this.A*(this.mu * this.mu - this.wd * this.wd) + 2 * this.B * this.mu * this.wd))
+	return Math.exp(this.mu * t) * (Math.sin(t*this.wd)*(this.B*(this.mu * this.mu - this.wd * this.wd) - 2 * this.A * this.mu * this.wd) + Math.cos(t*this.wd)*(this.A*(this.mu * this.mu - this.wd * this.wd) + 2 * this.B * this.mu * this.wd));
 }
 
 DampedFreeVibration.prototype.getAmplitudeUnderdamped = function() {
@@ -291,10 +291,18 @@ DampedFreeVibration.prototype.getMaximumAccelerationOverdamped = function() {
 
 function UndampedForcedVibration(params) {
 	this.free = new UndampedFreeVibration(params);
+
+	this.polynomial = new PolynomialFunction(params['polynomial']);
+	this.alpha = params['alpha'];
+	this.exponential = new ExponentialFunction(this.alpha);
+	this.beta = params['beta'];
+	this.wavefunction = new SinusoidalFunction(1, this.beta, 0, params['wavetype']);
+
+
 }
 
 UndampedForcedVibration.prototype.getPosition = function(t) {
-	return this.free(t) + this.yp(t);
+	return this.free.getPosition(t) + this.yp(t);
 }
 
 UndampedForcedVibration.prototype.getAmplitude = function() {
@@ -315,4 +323,12 @@ UndampedForcedVibration.prototype.getAcceleration = function(t) {
 
 UndampedForcedVibration.prototype.getMaximumAcceleration = function(t) {
 	return 0;
+}
+
+UndampedForcedVibration.prototype.yp = function(t){
+
+}
+
+UndampedForcedVibration.prototype.getFunction = function (polynomial, exponential, sinusoidal){
+
 }
