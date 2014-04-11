@@ -298,7 +298,7 @@ function UndampedForcedVibration(params) {
 	this.beta = params['beta'];
 	this.wavefunction = new SinusoidalFunction(1, this.beta, 0, params['wavetype']);
 
-
+	this.f = this.getFunction(this.polynomial, this.exponential, this.wavefunction);
 }
 
 UndampedForcedVibration.prototype.getPosition = function(t) {
@@ -326,9 +326,11 @@ UndampedForcedVibration.prototype.getMaximumAcceleration = function(t) {
 }
 
 UndampedForcedVibration.prototype.yp = function(t){
-
+	return this.f(t);
 }
 
-UndampedForcedVibration.prototype.getFunction = function (polynomial, exponential, sinusoidal){
-
+UndampedForcedVibration.prototype.getFunction = function (polynomial, exponential, wavefunction){
+	return function(t){
+		return t;
+	}
 }
