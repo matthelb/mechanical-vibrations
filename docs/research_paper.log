@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.4-0.9998 (MiKTeX 2.9 64-bit) (preloaded format=xelatex 2014.3.30)  8 APR 2014 14:43
+This is XeTeX, Version 3.1415926-2.4-0.9998 (MiKTeX 2.9 64-bit) (preloaded format=xelatex 2014.3.30)  10 APR 2014 15:06
 entering extended mode
 **research_paper.tex
 
@@ -814,22 +814,21 @@ File: undamped_free.png Graphic file (type QTm)
 Requested font "[lmroman10-bold]:mapping=tex-text" at 10.95pt
  -> C:/Program Files/MiKTeX 2.9/fonts/opentype/public/lm/lmroman10-bold.otf
 File: overdamped_free.png Graphic file (type QTm)
- <use  "overdamped_free.png" >
+ <use  "overdamped_free.png" > [2]
 File: critically_damped_free.png Graphic file (type QTm)
 
-<use  "critically_damped_free.png" > [2]
+<use  "critically_damped_free.png" >
 File: underdamped_free.png Graphic file (type QTm)
- <use  "underdamped_free.png" >
-[3]
+ <use  "underdamped_free.png" > [3]
 (C:\Users\Matt\Dropbox\School\College\Freshman\Spring\mechanical-vibrations\doc
 s\research_paper.aux) ) 
 Here is how much of TeX's memory you used:
- 16100 strings out of 429035
- 338785 string characters out of 3167909
+ 16102 strings out of 429035
+ 338823 string characters out of 3167909
  352911 words of memory out of 3000000
- 19219 multiletter control sequences out of 15000+200000
+ 19221 multiletter control sequences out of 15000+200000
  8302 words of font info for 44 fonts, out of 3000000 for 9000
  912 hyphenation exceptions out of 8191
- 46i,16n,38p,646b,351s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 46i,16n,38p,646b,767s stack positions out of 5000i,500n,10000p,200000b,50000s
 
 Output written on research_paper.pdf (3 pages).
