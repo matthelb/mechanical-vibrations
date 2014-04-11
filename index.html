@@ -83,6 +83,22 @@
 				<h1>Mechanical Vibrations</h1>
 			</div>
 			<div class="form-horizontal">
+				<div class="form-group text-center">
+					<div class="btn-group">
+						<label class="btn">
+							<input type="radio" name="type" value="UndampedFreeVibration" checked> Undamped Free
+						</label>
+						<label class="btn">
+							<input type="radio" name="type" value="DampedFreeVibration"> Damped Free
+						</label>
+						<label class="btn">
+							<input type="radio" name="type" value="UndampedForcedVibration"> Undamped Forced
+						</label>
+						<label class="btn">
+							<input type="radio" name="type" value="DampedForcedVibration" disabled> Damped Forced
+						</label>		
+					</div>			  	
+				</div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label required" for="m-input">Mass</label>
 					<div class="col-lg-8">
@@ -95,6 +111,45 @@
 						<input class="form-control" type="text" id="k-input" placeholder="Input a k value." value="100" />
 					</div>
 				</div>
+				<div class="form-group" style="display: none;">
+					<label class="col-lg-4 control-label required" for="f-input">F(t) = </label>
+					<div class="col-lg-8">
+						<div id="f-input">
+							(
+							<div id="polynomial-area">
+								<div class="polynomial-field">
+									<input class="polynomial const-area" id="x2" value="1">
+									<span class="polynomial-label">x<sup>2</sup> + </span>
+								</div>
+								<div class="polynomial-field">
+									<input class="polynomial const-area" id="x1" value="2">
+									<span class="polynomial-label">x<sup></sup> + </span>
+								</div>
+								<div class="polynomial-field">
+									<input class="polynomial const-area" id="x0" value="2">
+								</div>
+							</div>
+							)
+							[e<sup><input class="const-area" type="text" id="alpha-input" placeholder="&alpha;" value="2"/>t</sup>
+							<select id="wavetype-input">
+								<option value="sin">sin</option>
+								<option value="cos">cos</option>
+							</select>
+							(<input class="const-area" type="text" id="beta-input" placeholder="&beta;" value="2">t)]
+							<div id="polynomial-buttons" style="float:right;">
+								<span>Degree of Polynomial: <span id="current-degree">2</span></span>
+								<button id="increase-degree">+</button>
+								<button id="decrease-degree">-</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" style="display: none;">
+					<label class="col-lg-4 control-label required" for="gamma-input">Gamma constant</label>
+					<div class="col-lg-8">
+						<input class="form-control" type="text" id="gamma-input" placeholder="Input a gamma value." value="0.1"/>
+					</div>
+				</div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label required" for="y0-input">Initial y-position</label>
 					<div class="col-lg-8">
@@ -104,7 +159,7 @@
 				<div class="form-group">
 					<label class="col-lg-4 control-label required" for="v0-input">Initial velocity</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" id="v0-input" placeholder="Input an initial velocity." value="50" />
+						<input class="form-control" type="text" id="v0-input" placeholder="Input an initial velocity." value="30" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -124,22 +179,6 @@
 					<div class="col-lg-8">
 						<input class="form-control" type="text" id="end-input" placeholder="End time." value="10"/>
 					</div>
-				</div>
-				<div class="form-group text-center">
-					<div class="btn-group">
-						<label class="btn">
-							<input type="radio" name="type" value="UndampedFreeVibration" checked> Undamped Free
-						</label>
-						<label class="btn">
-							<input type="radio" name="type" value="DampedFreeVibration" disabled> Damped Free
-						</label>
-						<label class="btn">
-							<input type="radio" name="type" value="UndampedForcedVibration" disabled> Undamped Forced
-						</label>
-						<label class="btn">
-							<input type="radio" name="type" value="DampedForcedVibration" disabled> Damped Forced
-						</label>		
-					</div>			  	
 				</div>
 				<div class="form-group text-center">
 					<button class="btn" id="start-simulation" data-toggle="modal">Start Simulation</button>

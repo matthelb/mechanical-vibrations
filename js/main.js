@@ -1,10 +1,27 @@
 $(document).ready(function(){
 	$('.required').append($("<span>").addClass("required-label").text("*"));
+	$('input[name=type]:radio').each(function() {
+		resetForm($(this));
+	});
+	$('input[name=type]:radio').click(function() {
+		resetForm($(this));
+	});
 	$('#spring-canvas').attr('width', $('#spring-canvas').width());
 	$('#spring-canvas').attr('height', $('#spring-canvas').width());
 	$('#start-simulation').click(function(){
-		console.log('Hello?');
-		if(invalidForm()){
+		var constants = {
+			m : parseFloat($('#m-input').val()),
+			k : parseFloat($('#k-input').val()),
+			y0 : parseFloat($('#y0-input').val()),
+			v0 : parseFloat($('#v0-input').val()),
+			frames : parseInt($('#time-input').val()),
+			start : parseFloat($('#start-input').val()),
+			end : parseFloat($('#end-input').val())
+		};
+		if ($('#gamma-input').is(':visible')) {
+			constants['gamma'] = parseFloat($('#gamma-input').val());
+		}
+		if(invalidForm(constants)){
 			$('#warning-modal').modal('show');
 			return;
 		}
@@ -22,18 +39,31 @@ $(document).ready(function(){
 	$('#resume-simulation').click(function(){
 		initGraph();
 	});
+
+	bindPolynomials();
 });
 
-function invalidForm(){
-	var m = parseFloat($('#m-input').val());
-	var k = parseFloat($('#k-input').val());
-	var y0 = parseFloat($('#y0-input').val());
-	var v0 = parseFloat($('#v0-input').val());
-	var frames = parseInt($('#time-input').val());
-	var start = parseFloat($('#start-input').val());
-	var end = parseFloat($('#end-input').val());
-	if(isNaN(m) || isNaN(k) || isNaN(y0) || isNaN(v0)) return true;
-	else return false;
+function resetForm(radio) {
+	if (radio.is(':checked')) {
+		if (radio.attr('value') == 'DampedFreeVibration') {
+			$('#gamma-input').parents('.form-group').fadeIn();
+		} else {
+			$('#gamma-input').parents('.form-group').fadeOut();
+		}
+		if (radio.attr('value') == 'UndampedForcedVibration') {
+			$('#f-input').parents('.form-group').fadeIn();
+		} else {
+			$('#f-input').parents('.form-group').fadeOut();
+		}
+	}
+}
+function invalidForm(constants){
+	if(isNaN(constants['m']) || isNaN(constants['k']) || isNaN(constants['y0']) || isNaN(constants['v0'])) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 function initGraph(){
@@ -44,9 +74,24 @@ function initGraph(){
 	var frames = parseInt($('#time-input').val());
 	var start = parseFloat($('#start-input').val());
 	var end = parseFloat($('#end-input').val());
-	if(isNaN(start)) start = 0;
+	if(isNaN(start)) {
+		start = 0;
+	}
 	var type = window[$('input[name=type]:radio:checked').val()];
-	var spring = new Spring(m, k, y0, v0, type);
+	var constants = {'m' : m, 'k' : k, 'y0' : y0, 'v0' : v0};
+	if ($('#gamma-input').is(':visible')) {
+		constants['gamma'] = parseFloat($('#gamma-input').val());
+	}
+	if ($('#f-input').is(':visible')) {
+		constants['polynomial'] = [];
+		for(var i = 0;i < $('.polynomial.const-area').length;i++){
+			constants['polynomial'][i] = parseFloat($('#x' + i).val());
+		}
+		constants['alpha'] = parseFloat($('#alpha-input').val());
+		constants['wavetype'] = $('#wavetype-input').val() == 'sin' ? Math.sin : Math.cos;
+		constants['beta'] = parseFloat($('#beta-input').val());
+	}
+	var spring = new Spring(constants, type);
 	graph(start, end, spring, frames);
 }
 
@@ -85,7 +130,7 @@ function graph(start, end, spring, seconds) {
 	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("yaxisLabel").text("y-displacement (m)"));
 	$("#spring-graph").append($("<div>").addClass("axisLabel").addClass("xaxisLabel").text("Time (s)"));
 	var t = start;
-	var i = (isNaN(end)) ? 0.016666 : (end - start)/(seconds * 60);
+	var i = (isNaN(end)) ? 0.016 : (end - start)/(seconds * 60);
 
 	container.data('interval-id', setInterval(function(){
 		if(t >= end) {
@@ -117,4 +162,41 @@ function stopGraphing() {
 	if (id) {
 		clearInterval(id);
 	}
+}
+
+function bindPolynomials(){
+	var currentDegree = 2;
+	$('#increase-degree').click(function(){
+		if(increaseDegree(currentDegree)){
+			currentDegree++;
+			$('#current-degree').text(currentDegree);
+		}
+	});
+
+	$('#decrease-degree').click(function(){
+		if(decreaseDegree(currentDegree)){
+			currentDegree--;
+			$('#current-degree').text(currentDegree);
+		}
+	});
+}
+
+function increaseDegree(currentDegree){
+	var newVariable = $('<div>').addClass('polynomial-field').css('display', 'none')
+				.append($('<input>').addClass("polynomial const-area").attr('id','x'+(currentDegree+1)).attr('value', 1))
+				.append($('<span>').addClass("polynomial-label")
+						.html('x<sup>' + (currentDegree != 0 ? (currentDegree+1) : '') + '</sup> + '));
+	$('#polynomial-area').prepend(newVariable);
+	newVariable.fadeIn(150);
+	return true;
+}
+
+function decreaseDegree(currentDegree){
+	if(currentDegree > 0){
+		$('#polynomial-area div:first-child').fadeOut(150, function(){
+			$(this).remove();
+		});
+		return true;
+	}
+	return false;
 }

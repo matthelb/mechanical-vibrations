@@ -2,6 +2,13 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+sup, sub {
+   vertical-align: baseline;
+   position: relative;
+   top: -0.4em;
+}
+sub { top: 0.4em; }
+
 .center {
 	float: none;
 	margin: 0 auto;
@@ -50,4 +57,15 @@
 
 .required-label {
 	color: red;
+}
+
+.const-area {
+    text-align: center;
+    width: 25px;
+    margin: 0px 2px 0px 2px;
+    padding: 2px;
+}
+
+#f-input div {
+    display: inline-block;
 }
