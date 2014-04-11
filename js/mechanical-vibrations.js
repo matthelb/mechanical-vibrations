@@ -310,7 +310,7 @@ UndampedForcedVibration.prototype.getAmplitude = function() {
 }
 
 UndampedForcedVibration.prototype.getVelocity = function(t) {
-	return 0;
+	return 0;	
 }
 
 UndampedForcedVibration.prototype.getMaximumVelocity = function(t) {
