@@ -129,7 +129,7 @@ Damped free vibrations are described by the homogenous differential equation $ay
 
 The characteristic equation for this differential equation is $m{\lambda}^2 + {\gamma}{\lambda} + k = 0$. Because the coefficient, $\gamma$, can be non-zero, the characteristic equation will either have two real roots, one real root, or two complex roots.
 \subsubsection {Overdamped Harmonic Motion}
-If ${\gamma}^2 - 4mk > 0$, then the equation is solved with two real roots ${\lambda}_{1,2} = {\frac{-\gamma}{2m}} \pm \frac{\sqrt{4mk - {\gamma}^2}}{2m}$. Therefore by \eqref{eq:two_real_roots}, the general solution will be:
+If ${\gamma}^2 - 4mk > 0$, then the equation is solved with two real roots ${\lambda}_{1,2} = {\frac{-\gamma}{2m}} \pm \frac{\sqrt{{\gamma}^2 - 4mk}}{2m}$. Therefore by \eqref{eq:two_real_roots}, the general solution will be:
 
 \begin{equation}\label{eq:overdamped_free}
 y(t) = {y_0}e^{{\lambda}_1t} + \frac{v_0}{\omega}e^{{\lambda}_2t}
@@ -140,7 +140,7 @@ Consider a block with a mass of 10 kg attached to a spring that stretches 1 mete
 Since we are given the constants $k = 2.5 N/m$, $m = 10 kg$, $y_0 = 10 m$, $v_0 = 10 m/s$, and $\gamma = 15$, we can simply substitute the constants into \eqref{eq:overdamped_free} to determine the position of the block at any time $t$. Note that $\omega = \sqrt{\frac{k}{m}} = \sqrt{\frac{2.5}{10}} = \frac{1}{2}$:
 
 \begin{equation}
-y(t) = 0
+y(t) = 10e^{-0.191t} + 20e^{-1.309t}
 \end{equation}
 
 \begin{Figure}
@@ -151,9 +151,17 @@ y(t) = 0
 
 
 \subsubsection {Critically Damped Harmonic Motion}
-If ${\gamma}^2 = 4mk$, then the equation is solved with one real root ${\lambda}_1 = {\lambda}_2 = \frac{-\gamma}{2m}$. Therefore by \eqref{eq:one_real_root}, the general soltution will be:
+If ${\gamma}^2 = 4mk$, then the equation is solved with one real root ${\lambda}_1 = {\lambda}_2 = \frac{-\gamma}{2m}$. Therefore by \eqref{eq:one_real_root}, the general soution will be:
+\begin{equation}\label{eq:critically_damped}
+y(t) = (A + Bt)e^{{\frac{{-\gamma}t}{2m}}}	
+\end{equation}
+
+Consider a block with a mass of 10 kg attached to a spring that stretches 1 meter for every 2.5 N of force applied to it. The block is also subject to a damping force with a constant damping coefficient $\gamma = 10$. When the block is initially displaced 10 m and the initial velocity of the block is set to 10 m/s, what will the position of the block be at time $t$?
+
+Since we are given the constants $k = 2.5 N/m$, $m = 10 kg$, $y_0 = 10 m$, $v_0 = 10 m/s$, and $\gamma = 10$, we can simply substitute the constants into \eqref{eq:critically_damped} to determine the position of the block at any time $t$. Note that $\omega = \sqrt{\frac{k}{m}} = \sqrt{\frac{2.5}{10}} = \frac{1}{2}$:
+
 \begin{equation}
-y(t) = (A + Bt)e^{{\frac{-\gamma}{2m}}}	
+y(t) = (10 + 20t)e^{-0.5t}
 \end{equation}
 
 \begin{Figure}
@@ -164,8 +172,16 @@ y(t) = (A + Bt)e^{{\frac{-\gamma}{2m}}}
 
 \subsubsection {Underdamped Harmonic Motion}
 If ${\gamma}^2 - 4mk < 0$, then the equation is solved with two complex roots ${\lambda}_{1,2} = \frac{-\gamma}{2m} \pm iv$, where $v = \frac{\sqrt{4mk - {\gamma}^2}}{2m}$. Therefore by \eqref{eq:two_complex_roots}, the general solution will be:
+\begin{equation}\label{eq:underdamped}
+y(t) = e^{{\frac{-{\gamma}t}{2m}}}(Acos(vt) + Bsin(vt))
+\end{equation}
+
+Consider a block with a mass of 100 kg attached to a spring that stretches 1 meter for every 100 N of force applied to it. The block is also subject to a damping force with a constant damping coefficient $\gamma = 10$. When the block is initially displaced 10 m and the initial velocity of the block is 30 m/s, what will the position of the block be at time $t$?
+
+Since we are given the constants $k = 100 N/m$, $m = 100 kg$, $y_0 = 10 m$, $v_0 = 30 m/s$, and $\gamma = 10$, we can simply substitute the constants into \eqref{eq:underdamped} to determine the position of the block at any time $t$. Note that $\omega = \sqrt{\frac{k}{m}} = \sqrt{\frac{100}{100}} = 1$:
+
 \begin{equation}
-y(t) = e^{{\frac{-\gamma}{2m}}}(Acos(vt) + Bsin(vt))
+y(t) = e^{-0.05}(10cos(0.999t) + sin(0.999t))
 \end{equation}
 
 \begin{Figure}
