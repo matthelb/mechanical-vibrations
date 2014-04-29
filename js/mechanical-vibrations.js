@@ -94,6 +94,14 @@ PolynomialFunction.prototype.derivative = function() {
 	return new PolynomialFunction(constants);
 }
 
+PolynomialFunction.prototype.getDegree = function() {
+	return this.c.length;
+}
+
+PolynomialFunction.prototype.getCoefficient = function(i) {
+	return this.c[i];
+}
+
 /***
 * ExponentialFunction
 *     Takes two constants, a and k
@@ -289,16 +297,8 @@ DampedFreeVibration.prototype.getMaximumAccelerationOverdamped = function() {
 	return Math.abs(this.A * this.root1 * this.root1 + this.B * this.root2 * this.root2);
 }
 
-function UndampedForcedVibration(params) {
-	this.free = new UndampedFreeVibration(params);
-
-	this.polynomial = new PolynomialFunction(params['polynomial']);
-	this.alpha = params['alpha'];
-	this.exponential = new ExponentialFunction(this.alpha);
-	this.beta = params['beta'];
-	this.wavefunction = new SinusoidalFunction(1, this.beta, 0, params['wavetype']);
-
-	this.f = this.getFunction(this.polynomial, this.exponential, this.wavefunction);
+function ForcedVibration(params) {
+	this.yh = new DampedFreeVibration(params);
 }
 
 UndampedForcedVibration.prototype.getPosition = function(t) {
